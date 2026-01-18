@@ -10,11 +10,13 @@ BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 # --- SUDO KEEPALIVE ---
 echo "Requesting sudo privileges for installation..."
 sudo -v
-while true; do
-  sudo -n true
-  sleep 60
-  kill -0 "$$" || exit
-done 2>/dev/null &
+
+# 2. Create a temporary file allowing passwordless sudo
+#    This prevents 'yay' or 'pacman' from ever asking again during this script.
+echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/00_dotfiles_temp >/dev/null
+
+# 3. Ensure we delete this file no matter what happens (Success, Error, or Ctrl+C)
+trap "sudo rm -f /etc/sudoers.d/00_dotfiles_temp; echo 'Cleaned up sudo privileges.'" EXIT
 
 echo "Starting automated setup. Logs: $LOG"
 
