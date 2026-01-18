@@ -1,0 +1,58 @@
+/* -----------------------------------------------------------------------------
+ * Catppuccin Mocha Palette
+ * -------------------------------------------------------------------------- */
+@define-color base   #1e1e2e;
+@define-color mantle #181825;
+@define-color crust  #11111b;
+@define-color blue   #89b4fa;
+@define-color mauve  #cba6f7;
+@define-color red    #f38ba8;
+@define-color text   #cdd6f4;
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent; /* Essential for the floating look */
+}
+
+/* The "Islands" */
+.modules-left, .modules-center, .modules-right {
+    background: @base;
+    border: 1px solid @mauve;
+    color: @text;
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px; /* Float away from top */
+    margin-bottom: 0px;
+}
+
+#workspaces button {
+    color: @blue;
+    padding: 0 5px;
+}
+
+#workspaces button.active {
+    color: @mauve;
+}
+
+#clock, #battery, #cpu, #memory, #disk, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor, #mpd {
+    padding: 0 10px;
+    color: @text;
+}
+
+#clock {
+    color: @mauve;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    color: @red;
+}

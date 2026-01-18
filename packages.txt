@@ -1,0 +1,49 @@
+# --- Core Rice ---
+hyprland
+waybar
+wofi
+awww-git
+kitty
+dunst
+sddm-git
+xdg-desktop-portal-hyprland
+polkit-kde-agent
+qt5-wayland
+qt6-wayland
+
+# --- Fonts ---
+ttf-jetbrains-mono-nerd
+noto-fonts-cjk
+noto-fonts-emoji
+
+# --- Input (KR/JP) ---
+fcitx5-im
+fcitx5-hangul
+fcitx5-mozc
+
+# --- Apps ---
+microsoft-edge-stable-bin
+discord
+obsidian
+visual-studio-code-bin
+slack-desktop
+thunar
+zotero-bin
+
+# --- CLI & Tools ---
+neovim
+git
+base-devel
+bash-completion          # Essential for Bash
+zoxide                   # Smarter 'cd'
+fzf                      # Fuzzy finder
+starship                 # Modern prompt
+eza                      # Better 'ls'
+bat                      # Better 'cat'
+pamixer
+playerctl
+grim
+slurp
+tmux
+opencode-bin
+xclip

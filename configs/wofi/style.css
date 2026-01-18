@@ -1,0 +1,18 @@
+window {
+    margin: 0px;
+    border: 2px solid #cba6f7; /* Mauve border */
+    background-color: rgba(30, 30, 46, 0.85); /* 85% opacity */
+    border-radius: 15px;
+}
+
+#input {
+    background-color: rgba(30, 30, 46, 0.5);
+    color: #cdd6f4;
+    border-radius: 15px;
+    border: none;
+}
+
+#entry:selected {
+    background-color: rgba(203, 166, 247, 0.5); /* Transparent highlight */
+    border-radius: 10px;
+}

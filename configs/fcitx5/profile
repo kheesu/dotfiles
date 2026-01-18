@@ -1,0 +1,23 @@
+[Groups/0]
+# The default group
+Name=Default
+Default Layout=us
+DefaultIM=keyboard-us
+
+[Groups/0/Items/0]
+# Item 1: US English
+Name=keyboard-us
+Layout=
+
+[Groups/0/Items/1]
+# Item 2: Korean Hangul
+Name=hangul
+Layout=
+
+[Groups/0/Items/2]
+# Item 3: Japanese Mozc
+Name=mozc
+Layout=
+
+[GroupOrder]
+0=Default
