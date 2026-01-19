@@ -23,6 +23,24 @@ BACKUP_DIR="$HOME_DIR/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 pacman-key --init
 pacman-key --populate archlinux
 pacman -Sy --noconfirm archlinux-keyring
+pacman -S base-devel
+
+echo "$REAL_USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/00_temp_dotfiles
+chmod 0440 /etc/sudoers.d/00_temp_dotfiles
+
+# Verification: Test if the user can actually sudo without a password now
+if ! sudo -u "$REAL_USER" sudo -n true; then
+  echo "ERROR: Passwordless sudo setup failed. Aborting."
+  rm -f /etc/sudoers.d/00_temp_dotfiles
+  exit 1
+fi
+
+# Cleanup function (Runs when script exits/crashes)
+cleanup() {
+  rm -f /etc/sudoers.d/00_temp_dotfiles
+  echo "Cleaned up temporary sudo privileges."
+}
+trap cleanup EXIT
 
 echo "--- Phase 2: Installing Software ---"
 
