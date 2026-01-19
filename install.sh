@@ -105,6 +105,8 @@ THEME_DIR="/usr/share/sddm/themes/catppuccin-mocha"
 as_user git config --global init.defaultBranch main
 as_user git config --global core.editor "nvim"
 as_user git config --global credential.helper store
+as_user git config --global user.name "kheesu"
+as_user git config --global user.email "kheesu496@gmail.com"
 
 # Environment Variables (Fcitx)
 # grep -q "GTK_IM_MODULE=fcitx" /etc/environment || echo "GTK_IM_MODULE=fcitx" >>/etc/environment
