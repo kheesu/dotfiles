@@ -99,6 +99,11 @@ sudo systemctl enable --now sddm >/dev/null 2>&1 || true
 sudo systemctl enable --now NetworkManager >/dev/null 2>&1 || true
 sudo systemctl enable --now bluetooth >/dev/null 2>&1 || true
 
+# Docker Setup
+echo "Configuring Docker..."
+sudo systemctl enable --now docker.service
+sudo usermod -aG docker "$USER"
+
 # 7. FINAL TOUCHES
 # ----------------
 # Attempt to start wallpaper daemon if in GUI
