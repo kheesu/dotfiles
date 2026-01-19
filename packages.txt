@@ -2,88 +2,88 @@
 #  CORE SYSTEM & DRIVERS
 # ==========================================
 base-devel
-linux-headers           # Essential for compiling modules/drivers
+linux-headers
 git
 networkmanager
-bluez                   # Bluetooth Support
+bluez
 bluez-utils
-blueman                 # Bluetooth GUI
-pipewire                # Modern Audio Server
+blueman
+pipewire
 pipewire-alsa
 pipewire-pulse
 pipewire-jack
-wireplumber             # Audio Session Manager
-pavucontrol             # Audio Control GUI
-brightnessctl           # Screen brightness control
-udisks2                 # Auto-mounting external drives
-gvfs                    # Virtual filesystem support
-ntfs-3g                 # NTFS drive support
+wireplumber
+pavucontrol
+brightnessctl
+udisks2
+gvfs
+ntfs-3g
 
 # ==========================================
 #  HYPRLAND DESKTOP ENVIRONMENT
 # ==========================================
 hyprland
-xdg-desktop-portal-hyprland # Required for screensharing/obs
-qt5-wayland             # Wayland support for Qt5 apps
-qt6-wayland             # Wayland support for Qt6 apps
-polkit-kde-agent        # Authentication popup (sudo GUI)
-waybar                  # Status Bar
-wofi                    # App Launcher
-dunst                   # Notifications
+xdg-desktop-portal-hyprland
+qt5-wayland
+qt6-wayland
+polkit-kde-agent
+waybar
+wofi
+dunst
 awww-git
-hyprlock                # Screen locker
-hypridle                # Idle daemon
-wl-clipboard            # System clipboard
-cliphist                # Clipboard manager history
-grim                    # Screenshot tool
-slurp                   # Region selector for screenshots
+hyprlock
+hypridle
+wl-clipboard
+cliphist
+grim
+slurp
 
 # ==========================================
 #  FONTS & VISUALS
 # ==========================================
-ttf-jetbrains-mono-nerd # The GOAT coding font
-noto-fonts              # Standard UI fonts
-noto-fonts-cjk          # Essential for Korean/Japanese
-noto-fonts-emoji        # Emojis
-ttf-font-awesome        # Icons for Waybar
-papirus-icon-theme      # High quality icon set
+ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-font-awesome
+papirus-icon-theme
 
 # ==========================================
 #  INPUT METHOD (KOREAN / JAPANESE)
 # ==========================================
 fcitx5-im
-fcitx5-hangul           # Korean Input
-fcitx5-mozc             # Japanese Input
-fcitx5-gtk              # GTK Support
-fcitx5-qt               # QT Support
-fcitx5-configtool       # GUI Configuration tool
+fcitx5-hangul
+fcitx5-mozc
+fcitx5-gtk
+fcitx5-qt
+fcitx5-configtool
 
 # ==========================================
 #  SHELL & TERMINAL UTILITIES
 # ==========================================
-kitty                   # GPU Accelerated Terminal
-zsh                     # Shell (Optional, if you prefer over Bash)
-starship                # Cross-shell prompt
-zoxide                  # Smart 'cd'
-fzf                     # Fuzzy Finder
-eza                     # Modern 'ls'
-bat                     # Modern 'cat'
-ripgrep                 # Blazing fast 'grep' (Essential for Neovim Telescope)
-fd                      # Fast 'find' replacement
-jq                      # JSON processor
-yq                      # YAML processor
-tldr                    # Simplified man pages
-man-db                  # Standard man pages
-man-pages               # Development man pages
-tmux                    # Terminal Multiplexer
+kitty
+zsh
+starship
+zoxide
+fzf
+eza
+bat
+ripgrep
+fd
+jq
+yq
+tldr
+man-db
+man-pages
+tmux
 wget
 curl
 unzip
 zip
 tar
-openssh                 # SSH Client/Server
-htop                    # Process viewer
-btop                    # Better process viewer
+openssh
+htop
+btop
 less
 tree
 rsync
@@ -99,17 +99,17 @@ which
 # ==========================================
 #  DEVELOPMENT: C / C++ / GPGPU
 # ==========================================
-clang                   # Modern C/C++ Compiler
-cmake                   # Build system
-ninja                   # Fast build system
-gdb                     # Debugger
-valgrind                # Memory leak detector
-raylib                  # Game Dev Library
-opencl-headers          # GPGPU Headers
-ocl-icd                 # OpenCL Installable Client Driver
-mesa                    # OpenGL/Vulkan Drivers
-vulkan-tools            # Vulkan utilities
-glslang                 # Shader compiler
+clang
+cmake
+ninja
+gdb
+valgrind
+raylib
+opencl-headers
+ocl-icd
+mesa
+vulkan-tools
+glslang
 
 # ==========================================
 #  DEVELOPMENT: PYTHON / AI
@@ -117,44 +117,44 @@ glslang                 # Shader compiler
 python
 python-pip
 python-virtualenv
-tk                      # Required for Python Turtle/GUI modules
+tk
 
 # ==========================================
 #  DEVELOPMENT: WEB / JS
 # ==========================================
-nodejs                  # JS Runtime
-npm                     # Package Manager (Required for many LSP servers)
+nodejs
+npm
 
 # ==========================================
 #  EDITORS & IDEs
 # ==========================================
-neovim                  # The God Editor
-visual-studio-code-bin  # AUR Binary (Faster install)
-obsidian                # Note taking
+neovim
+visual-studio-code-bin
+obsidian
 
 # ==========================================
 #  PRODUCTIVITY & SOCIAL
 # ==========================================
-microsoft-edge-stable-bin # AUR Binary
-discord                 # Chat
-slack-desktop           # Work Chat
-thunar                  # File Manager
-thunar-archive-plugin   # Archive support for Thunar
-file-roller             # Archive manager backend
-imv                     # Minimalist Image Viewer
-mpv                     # Video Player
+microsoft-edge-stable-bin
+discord
+slack-desktop
+thunar
+thunar-archive-plugin
+file-roller
+imv
+mpv
 
 # ==========================================
 #  MISC TOOLS
 # ==========================================
-opencode-bin            # AI Coding Agent
-xclip                   # X11 Clipboard (Compat for some tools)
+opencode-bin
+xclip
 
 # ==========================================
 #  VIRTUALIZATION & CONTAINERS
 # ==========================================
 docker
 docker-compose
-docker-buildx           # Modern build plugin
-qemu-base               # For emulating other architectures
-libvirt                 # Virtualization API
+docker-buildx
+qemu-base
+libvirt

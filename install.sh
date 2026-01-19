@@ -2,117 +2,100 @@
 
 set -e
 
-# --- CONFIGURATION ---
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run this script as root (sudo ./install.sh)"
+  exit 1
+fi
+
+REAL_USER=$SUDO_USER
+if [ -z "$REAL_USER" ]; then
+  echo "Error: Could not detect the real user. Did you run with sudo?"
+  exit 1
+fi
+HOME_DIR="/home/$REAL_USER"
+
+echo "Installing for user: $REAL_USER"
+
 DOTFILES_DIR=$(pwd)
 LOG="install.log"
-BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="$HOME_DIR/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 
-# --- SUDO KEEPALIVE ---
-echo "Requesting sudo privileges for installation..."
-sudo -v
+pacman-key --init
+pacman-key --populate archlinux
+pacman -Sy --noconfirm archlinux-keyring
 
-# 2. Create a temporary file allowing passwordless sudo
-#    This prevents 'yay' or 'pacman' from ever asking again during this script.
-echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/00_dotfiles_temp >/dev/null
+echo "--- Phase 2: Installing Software ---"
 
-# 3. Ensure we delete this file no matter what happens (Success, Error, or Ctrl+C)
-trap "sudo rm -f /etc/sudoers.d/00_dotfiles_temp; echo 'Cleaned up sudo privileges.'" EXIT
-
-echo "Starting automated setup. Logs: $LOG"
-
-# 1. INSTALL YAY (If missing)
-# ---------------------------
-if ! command -v yay &>/dev/null; then
+# 1. INSTALL YAY (As User)
+if ! sudo -u "$REAL_USER" command -v yay &>/dev/null; then
   echo "Installing Yay..."
-  sudo pacman -S --needed --noconfirm git base-devel >/dev/null 2>&1
-  git clone https://aur.archlinux.org/yay.git >/dev/null 2>&1
+  cd "$HOME_DIR"
+  # Clone and build as the normal user
+  sudo -u "$REAL_USER" git clone https://aur.archlinux.org/yay.git
   cd yay
-  makepkg -si --noconfirm >/dev/null 2>&1
+  sudo -u "$REAL_USER" makepkg -si --noconfirm
   cd ..
   rm -rf yay
+  cd "$DOTFILES_DIR"
 fi
 
-# 2. INSTALL PACKAGES
-# -------------------
-echo "Installing Software Stack..."
-# Get list, remove comments
-PACKAGES=$(grep -vE "^\s*#" packages.txt | tr "\n" " ")
-# Install everything silently
-yay -S --needed --noconfirm $PACKAGES >>$LOG 2>&1
+# 2. INSTALL PACKAGES (As User)
+echo "Installing Packages..."
+# Clean inline comments from packages.txt
+PACKAGES=$(sed 's/#.*$//' packages.txt | tr "\n" " ")
 
-# 3. LINK CONFIGS
-# ---------------
-echo "Applying Dotfiles..."
+# Run yay as the user. Because we added the temporary sudoer file above,
+# yay can call 'sudo pacman' internally without prompting for a password.
+sudo -u "$REAL_USER" yay -S --needed --noconfirm $PACKAGES >>$LOG 2>&1
 
-# Backup
-if [ -d "$HOME/.config" ]; then
-  mkdir -p "$BACKUP_DIR"
-  cp -r "$HOME/.config" "$BACKUP_DIR"
-fi
+echo "--- Phase 3: Applying Configs ---"
 
-mkdir -p "$HOME/.config"
+# Define a helper to run commands as the real user
+as_user() {
+  sudo -u "$REAL_USER" "$@"
+}
 
-# Copy all config folders (hypr, kitty, nvim, fcitx5, waybar...)
-cp -r "$DOTFILES_DIR/configs/"* "$HOME/.config/"
+# Link Configs
+as_user mkdir -p "$HOME_DIR/.config"
+as_user cp -r "$DOTFILES_DIR/configs/"* "$HOME_DIR/.config/"
 
-# Copy Standalone files
-cp "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
-cp "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
+# Standalone Files
+as_user cp "$DOTFILES_DIR/.bashrc" "$HOME_DIR/.bashrc"
+as_user cp "$DOTFILES_DIR/.tmux.conf" "$HOME_DIR/.tmux.conf"
 
-# 4. SETUP WALLPAPERS & SCRIPTS
-# -----------------------------
-mkdir -p "$HOME/Pictures/Wallpapers"
-mkdir -p "$HOME/dotfiles/scripts"
+# Wallpapers
+as_user mkdir -p "$HOME_DIR/Pictures/Wallpapers"
+as_user cp "$DOTFILES_DIR/wallpapers/"wallpaper*.jpg "$HOME_DIR/Pictures/Wallpapers/"
 
-# Copy wallpapers if folder exists
-[ -d "$DOTFILES_DIR/wallpapers" ] && cp "$DOTFILES_DIR/wallpapers/"*.jpg "$HOME/Pictures/Wallpapers/"
-cp "$DOTFILES_DIR/wallpaper0.jpg" "$HOME/Pictures/Wallpapers/wallpaper0.jpg"
+# Scripts
+as_user mkdir -p "$HOME_DIR/dotfiles/scripts"
+as_user cp "$DOTFILES_DIR/scripts/"* "$HOME_DIR/dotfiles/scripts/"
+as_user chmod +x "$HOME_DIR/dotfiles/scripts/"*
 
-# Copy scripts and make executable
-cp "$DOTFILES_DIR/scripts/"* "$HOME/dotfiles/scripts/"
-chmod +x "$HOME/dotfiles/scripts/"*
+echo "--- Phase 4: Finalizing System ---"
 
-# 5. CONFIGURE GIT
-# ---------------------------
-git config --global init.defaultBranch main
-git config --global core.editor "nvim"
-git config --global credential.helper store
-git config --global user.name "kheesu"
-git config --global user.email "kheesu496@gmail.com"
+# Set Git Defaults (Global)
+as_user git config --global init.defaultBranch main
+as_user git config --global core.editor "nvim"
+as_user git config --global credential.helper store
 
-# 6. SYSTEM SETTINGS
-# ------------------
-echo "Configuring System..."
-
-# Set Fcitx Environment
-grep -q "GTK_IM_MODULE=fcitx" /etc/environment || echo "GTK_IM_MODULE=fcitx" | sudo tee -a /etc/environment >/dev/null
-grep -q "QT_IM_MODULE=fcitx" /etc/environment || echo "QT_IM_MODULE=fcitx" | sudo tee -a /etc/environment >/dev/null
-grep -q "XMODIFIERS=@im=fcitx" /etc/environment || echo "XMODIFIERS=@im=fcitx" | sudo tee -a /etc/environment >/dev/null
-
-# Change Shell to Bash (ensure it's default)
-if [ "$SHELL" != "/bin/bash" ]; then
-  sudo usermod -s /bin/bash "$USER"
-fi
+# Environment Variables (Fcitx)
+grep -q "GTK_IM_MODULE=fcitx" /etc/environment || echo "GTK_IM_MODULE=fcitx" >>/etc/environment
+grep -q "QT_IM_MODULE=fcitx" /etc/environment || echo "QT_IM_MODULE=fcitx" >>/etc/environment
+grep -q "XMODIFIERS=@im=fcitx" /etc/environment || echo "XMODIFIERS=@im=fcitx" >>/etc/environment
 
 # Enable Services
-sudo systemctl enable --now sddm >/dev/null 2>&1 || true
-sudo systemctl enable --now NetworkManager >/dev/null 2>&1 || true
-sudo systemctl enable --now bluetooth >/dev/null 2>&1 || true
+systemctl enable sddm
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable docker
+usermod -aG docker "$REAL_USER"
 
-# Docker Setup
-echo "Configuring Docker..."
-sudo systemctl enable --now docker.service
-sudo usermod -aG docker "$USER"
-
-# 7. FINAL TOUCHES
-# ----------------
-# Attempt to start wallpaper daemon if in GUI
-if pgrep -x "Hyprland" >/dev/null; then
-  awww init &
-  sleep 1
-  awww img "$HOME/Pictures/Wallpapers/wallpaper0.jpg"
+# Set Shell to Bash (if not already)
+if [ "$SHELL" != "/bin/bash" ]; then
+  chsh -s /bin/bash "$REAL_USER"
 fi
 
-echo "Done. Rebooting in 5 seconds..."
+echo "Done! Rebooting in 5 seconds..."
 sleep 5
-sudo reboot
+reboot
