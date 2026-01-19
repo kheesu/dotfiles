@@ -34,6 +34,7 @@ require("lazy").setup({
         transparent_background = true,
         term_colors = true,
       })
+    end
     vim.cmd.colorscheme "catppuccin"
   }
   -- Add your plugins here later. Example:

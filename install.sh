@@ -97,8 +97,8 @@ echo "--- Phase 4: Finalizing System ---"
 echo "Configuring SDDM Theme..."
 as_user wget https://github.com/catppuccin/sddm/releases/download/v1.1.2/catppuccin-mocha-lavender-sddm.zip
 as_user unzip catppuccin-mocha-lavender-sddm.zip
-mv -v "$HOME_DIR/catppuccin-mocha-lavender" /usr/share/sddm/themes
-echo "[Theme]\nCurrent=catppuccin-mocha-lavender"
+mv -v "$DOTFILES_DIR/catppuccin-mocha-lavender" /usr/share/sddm/themes
+echo "[Theme]\nCurrent=catppuccin-mocha-lavender" >/etc/sddm.conf
 THEME_DIR="/usr/share/sddm/themes/catppuccin-mocha"
 
 # Set Git Defaults (Global)
@@ -107,8 +107,8 @@ as_user git config --global core.editor "nvim"
 as_user git config --global credential.helper store
 
 # Environment Variables (Fcitx)
-grep -q "GTK_IM_MODULE=fcitx" /etc/environment || echo "GTK_IM_MODULE=fcitx" >>/etc/environment
-grep -q "QT_IM_MODULE=fcitx" /etc/environment || echo "QT_IM_MODULE=fcitx" >>/etc/environment
+# grep -q "GTK_IM_MODULE=fcitx" /etc/environment || echo "GTK_IM_MODULE=fcitx" >>/etc/environment
+# grep -q "QT_IM_MODULE=fcitx" /etc/environment || echo "QT_IM_MODULE=fcitx" >>/etc/environment
 grep -q "XMODIFIERS=@im=fcitx" /etc/environment || echo "XMODIFIERS=@im=fcitx" >>/etc/environment
 
 # Enable Services
