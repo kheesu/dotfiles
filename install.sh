@@ -92,6 +92,36 @@ as_user chmod +x "$HOME_DIR/dotfiles/scripts/"*
 
 echo "--- Phase 4: Finalizing System ---"
 
+echo "Configuring SDDM Theme..."
+
+# 1. Create the config file to select the theme
+mkdir -p /etc/sddm.conf.d
+echo "[Theme]
+Current=catppuccin-mocha" >/etc/sddm.conf.d/theme.conf
+
+# 2. Fix the Wallpaper (SDDM cannot read /home, so we move it to /usr/share)
+# We overwrite the default theme background with your wallpaper0.jpg
+THEME_DIR="/usr/share/sddm/themes/catppuccin-mocha"
+
+if [ -d "$THEME_DIR" ]; then
+  # Backup original background (just in case)
+  [ ! -f "$THEME_DIR/background-original.jpg" ] && mv "$THEME_DIR/background.jpg" "$THEME_DIR/background-original.jpg"
+
+  # Copy YOUR wallpaper to the theme folder
+  cp "$HOME_DIR/Pictures/Wallpapers/wallpaper0.jpg" "$THEME_DIR/background.jpg"
+
+  # Ensure correct permissions
+  chown "$REAL_USER:$REAL_USER" "$THEME_DIR/background.jpg"
+  chmod 644 "$THEME_DIR/background.jpg"
+
+  # Optional: Customize the text (edit theme.conf inside the folder)
+  # This sets the font to your JetBrains Mono and fixes the date format
+  sed -i 's/Font=".*"/Font="JetBrains Mono Nerd Font"/' "$THEME_DIR/theme.conf"
+  sed -i 's/BasicTextColor=".*"/BasicTextColor="#cdd6f4"/' "$THEME_DIR/theme.conf"
+else
+  echo "WARNING: Catppuccin SDDM theme folder not found. Skipping wallpaper copy."
+fi
+
 # Set Git Defaults (Global)
 as_user git config --global init.defaultBranch main
 as_user git config --global core.editor "nvim"
