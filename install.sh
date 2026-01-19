@@ -126,6 +126,11 @@ fi
 echo 0 >"$HOME_DIR/.cache/current_wall_index"
 chown "$REAL_USER:$REAL_USER" "$HOME_DIR/.cache/current_wall_index"
 
+# Hide bootloader
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT_STYLE=menu/GRUB_TIMEOUT_STYLE=hidden/g' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
 echo "Done! Rebooting in 5 seconds..."
 sleep 5
 reboot
