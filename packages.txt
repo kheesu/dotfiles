@@ -30,7 +30,7 @@ polkit-kde-agent
 waybar
 wofi
 dunst
-awww-git
+swww
 hyprlock
 hypridle
 wl-clipboard
@@ -47,6 +47,9 @@ noto-fonts-cjk
 noto-fonts-emoji
 ttf-font-awesome
 papirus-icon-theme
+qt6-declarative
+qt6-svg
+qt5-quickcontrols2
 
 # ==========================================
 #  INPUT METHOD (KOREAN / JAPANESE)
