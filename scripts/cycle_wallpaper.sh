@@ -20,7 +20,7 @@ NEXT_INDEX=$(((CURRENT_INDEX + 1) % MAX_WALLPAPERS))
 NEXT_IMAGE="${WALLPAPER_DIR}/wallpaper${NEXT_INDEX}.jpg"
 
 # Apply wallpaper using awww with a random transition
-awww img "$NEXT_IMAGE" --transition-type any --transition-step 90 --transition-fps 60
+swww img "$NEXT_IMAGE" --transition-type any --transition-step 90 --transition-fps 60
 
 # Save new index
 echo $NEXT_INDEX >$CACHE_FILE

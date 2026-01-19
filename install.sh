@@ -23,7 +23,7 @@ BACKUP_DIR="$HOME_DIR/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 pacman-key --init
 pacman-key --populate archlinux
 pacman -Sy --noconfirm archlinux-keyring
-pacman -S base-devel
+pacman -S --noconfirm base-devel
 
 echo "$REAL_USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/00_temp_dotfiles
 chmod 0440 /etc/sudoers.d/00_temp_dotfiles
@@ -113,6 +113,9 @@ usermod -aG docker "$REAL_USER"
 if [ "$SHELL" != "/bin/bash" ]; then
   chsh -s /bin/bash "$REAL_USER"
 fi
+
+echo 0 >"$HOME_DIR/.cache/current_wall_index"
+chown "$REAL_USER:$REAL_USER" "$HOME_DIR/.cache/current_wall_index"
 
 echo "Done! Rebooting in 5 seconds..."
 sleep 5
