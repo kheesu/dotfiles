@@ -94,12 +94,14 @@ as_user chmod +x "$HOME_DIR/dotfiles/scripts/"*
 
 echo "--- Phase 4: Finalizing System ---"
 
+grep -q "GDK_SCALE=2" /etc/environment || echo "GDK_SCALE=2" >>/etc/environment
+grep -q "QT_AUTO_SCREEN_SCALE_FACTOR=1" /etc/environment || echo "QT_AUTO_SCREEN_SCALE_FACTOR=1" >>/etc/environment
+
 echo "Configuring SDDM Theme..."
 as_user wget https://github.com/catppuccin/sddm/releases/download/v1.1.2/catppuccin-mocha-lavender-sddm.zip
 as_user unzip catppuccin-mocha-lavender-sddm.zip
 mv -v "$DOTFILES_DIR/catppuccin-mocha-lavender" /usr/share/sddm/themes
 echo "[Theme]\nCurrent=catppuccin-mocha-lavender" >/etc/sddm.conf
-THEME_DIR="/usr/share/sddm/themes/catppuccin-mocha"
 
 # Set Git Defaults (Global)
 as_user git config --global init.defaultBranch main

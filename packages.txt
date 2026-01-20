@@ -37,6 +37,8 @@ wl-clipboard
 cliphist
 grim
 slurp
+sddm
+hyprcursor
 
 # ==========================================
 #  FONTS & VISUALS
