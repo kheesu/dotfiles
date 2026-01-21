@@ -135,6 +135,10 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT_STYLE=menu/GRUB_TIMEOUT_STYLE=hidden/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
+# Install Lazyvim
+as_user git clone https://github.com/LazyVim/starter ~/.config/nvim
+as_user rm -rf ~/.config/nvim/.git
+
 echo "Done! Rebooting in 5 seconds..."
 sleep 5
 reboot
