@@ -1,0 +1,28 @@
+# qmldir — module registration for the Pebbles shell
+# Quickshell reads this to resolve component imports within the config dir.
+# Every .qml file in components/, bar/, panels/, services/ is listed here.
+
+module Pebbles
+
+# ── components ────────────────────────────────────────────────
+singleton Colors            1.0  components/Colors.qml
+Acrylic                     1.0  components/Acrylic.qml
+PebbleContainer             1.0  components/PebbleContainer.qml
+
+# ── bar modules ───────────────────────────────────────────────
+Bar                         1.0  bar/Bar.qml
+Workspaces                  1.0  bar/Workspaces.qml
+FocusedTitle                1.0  bar/FocusedTitle.qml
+SysStats                    1.0  bar/SysStats.qml
+Tray                        1.0  bar/Tray.qml
+Clock                       1.0  bar/Clock.qml
+
+# ── panels ────────────────────────────────────────────────────
+LauncherPanel               1.0  panels/Launcher.qml
+QuickSettingsPanel          1.0  panels/QuickSettings.qml
+CalendarPanel               1.0  panels/Calendar.qml
+
+# ── services ──────────────────────────────────────────────────
+HyprlandService             1.0  services/HyprlandService.qml
+SystemStats                 1.0  services/SystemStats.qml
+AudioService                1.0  services/AudioService.qml
