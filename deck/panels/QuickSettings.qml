@@ -7,6 +7,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Io
+import Pebbles 1.0
 
 PanelWindow {
     id: root
@@ -87,6 +88,16 @@ PanelWindow {
     Timer {
         interval: 60000; running: true; repeat: true
         onTriggered: uptimeProc.start()
+    }
+
+    property string osName: "linux"
+    Process {
+        id: osNameProc
+        command: ["bash", "-c",
+            "grep '^ID=' /etc/os-release 2>/dev/null | cut -d= -f2 | tr -d '\"' || echo linux"
+        ]
+        running: true
+        onExited: root.osName = stdout.trim() || "linux"
     }
 
     // ── panel surface ─────────────────────────────────────────────
@@ -204,7 +215,7 @@ PanelWindow {
                         font { family: "Inter"; pixelSize: 12; weight: Font.Medium }
                     }
                     Text {
-                        text: "arch · " + (root.uptime || "…")
+                        text: root.osName + " · " + (root.uptime || "…")
                         color: Colors.muted
                         font { family: "Inter"; pixelSize: 10 }
                     }

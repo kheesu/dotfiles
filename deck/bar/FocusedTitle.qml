@@ -5,6 +5,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
+import Pebbles 1.0
 
 PebbleContainer {
     id: root

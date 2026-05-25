@@ -6,6 +6,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Io
+import Pebbles 1.0
 
 PanelWindow {
     id: root

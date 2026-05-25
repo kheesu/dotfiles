@@ -6,6 +6,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.DBus
+import Pebbles 1.0
 
 PebbleContainer {
     id: root
@@ -54,7 +55,12 @@ PebbleContainer {
             spacing: 4
             TrayIcon {
                 iconName: {
-                    if (sysSvc.batCharging) return "battery-caution-charging-symbolic"
+                    if (sysSvc.batCharging) {
+                        if (sysSvc.batPercent > 90) return "battery-full-charging-symbolic"
+                        if (sysSvc.batPercent > 60) return "battery-good-charging-symbolic"
+                        if (sysSvc.batPercent > 30) return "battery-medium-charging-symbolic"
+                        return "battery-low-charging-symbolic"
+                    }
                     if (sysSvc.batPercent > 90) return "battery-full-symbolic"
                     if (sysSvc.batPercent > 60) return "battery-good-symbolic"
                     if (sysSvc.batPercent > 30) return "battery-medium-symbolic"

@@ -4,20 +4,24 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, quickshell }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        qs   = quickshell.packages.${system}.default;
       in
       {
         # ── development environment (nix develop) ──────────────────
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            quickshell
+          buildInputs = [ qs ] ++ (with pkgs; [
             hyprland
-            
+
             # Fonts
             jetbrains-mono
             inter
@@ -47,7 +51,7 @@
             git
             unzip
             jq
-          ];
+          ]);
 
           shellHook = ''
             echo "Quickshell Pebbles development environment loaded"
@@ -59,7 +63,7 @@
         packages.pebbles = pkgs.stdenv.mkDerivation {
           name = "quickshell-pebbles";
           version = "1.0";
-          
+
           src = ./.;
 
           installPhase = ''
@@ -74,7 +78,7 @@
           };
         };
 
-        defaultPackage = self.packages.${system}.pebbles;
+        packages.default = self.packages.${system}.pebbles;
       }
     );
 }

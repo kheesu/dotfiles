@@ -80,14 +80,16 @@ ShellRoot {
     AudioService     { id: audioSvc    }
 
     // ── Hyprland IPC keybind listeners ────────────────────────────
-    // These replicate "bind = SUPER, SPACE, exec, quickshell ipc launcher"
-    // using Quickshell's built-in IPC rather than a subprocess.
-    Connections {
-        target: Quickshell.ipc
-        function onMessage(msg) {
-            if (msg === "launcher")       launcher.toggle()
-            if (msg === "quicksettings")  quickSettings.toggle()
-            if (msg === "calendar")       calendarPanel.toggle()
-        }
+    IpcHandler {
+        target: "launcher"
+        function onMessage(msg: string): void { launcher.toggle() }
+    }
+    IpcHandler {
+        target: "quicksettings"
+        function onMessage(msg: string): void { quickSettings.toggle() }
+    }
+    IpcHandler {
+        target: "calendar"
+        function onMessage(msg: string): void { calendarPanel.toggle() }
     }
 }

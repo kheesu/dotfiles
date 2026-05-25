@@ -4,6 +4,7 @@
 
 import QtQuick
 import QtQuick.Layouts
+import Pebbles 1.0
 
 PebbleContainer {
     id: root

@@ -33,6 +33,15 @@ QtObject {
     property int    batPercent: 100
     property bool   batCharging: false
 
+    // ── Username ─────────────────────────────────────────────────
+    property string username: ""
+    Process {
+        id: usernameProc
+        command: ["whoami"]
+        running: true
+        onExited: root.username = stdout.trim()
+    }
+
     // ─────────────────────────────────────────────────────────────
     // CPU + MEM — read /proc/stat and /proc/meminfo via Process
     // ─────────────────────────────────────────────────────────────
@@ -128,8 +137,9 @@ QtObject {
     Process {
         id: batProc
         command: ["bash", "-c",
-            "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null; " +
-            "cat /sys/class/power_supply/BAT0/status   2>/dev/null"
+            "bat=$(ls /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 | xargs dirname 2>/dev/null); " +
+            "cat \"$bat/capacity\" 2>/dev/null || echo 100; " +
+            "cat \"$bat/status\"   2>/dev/null || echo Unknown"
         ]
         running: false
         onExited: {
