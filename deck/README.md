@@ -157,5 +157,5 @@ nix profile upgrade '.*'
 | Wallpaper not showing | Place at least one image in `~/.config/sway/wallpaper/` |
 | App shortcuts do nothing | Install the app via `nix profile install nixpkgs#<app>` |
 | Brave/Vesktop/Obsidian spawn endless windows | Chromium/Electron crash-loops under the nixGL `LD_LIBRARY_PATH`; the config launches them with `env -u LD_LIBRARY_PATH`. Use the same wrapper for any new Electron app |
-| No animations | Needs a SwayFX build with animation support; `animation_duration_ms` in `config` controls speed (set to `0` to disable) |
+| No animations | Window animations need SwayFX master; nixpkgs ships 0.5.3 without them. Pin a git build in `flake.nix`, then add `animation_duration_ms 250` to `config` |
 | Fonts wrong | Run `nix profile install nixpkgs#nerd-fonts.jetbrains-mono` and restart Waybar |

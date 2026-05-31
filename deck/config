@@ -20,8 +20,9 @@ blur_radius 5
 blur_passes 2
 default_dim_inactive 0.1
 
-# Animations (SwayFX) — off by default; a non-zero duration enables them.
-animation_duration_ms 250
+# NOTE: window animations (animation_duration_ms) require SwayFX master;
+# nixpkgs ships 0.5.3, which doesn't support them yet. Re-add the line once
+# the packaged version includes animation support.
 
 # ── Applications (Super + key, mirrors root hyprland.conf) ────────────────────
 # Sway is launched via `nixGL sway`, which exports an LD_LIBRARY_PATH that all
