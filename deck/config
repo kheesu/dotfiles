@@ -81,9 +81,9 @@ bindsym Mod4+Shift+0 move container to workspace 10
 bindsym Mod4+s       scratchpad show
 bindsym Mod4+Shift+s move scratchpad
 
-# ── Cycle wallpaper (Super + Ctrl + j/k, avoids the focus binds) ──────────────
-bindsym Mod4+Ctrl+j exec /home/deck/.config/sway/cycle-wallpaper.sh next
-bindsym Mod4+Ctrl+k exec /home/deck/.config/sway/cycle-wallpaper.sh prev
+# ── Cycle wallpaper (Super + Ctrl + Alt + Space — "the claw grip", per root) ──
+bindsym Mod4+Ctrl+Mod1+space       exec /home/deck/.config/sway/cycle-wallpaper.sh next
+bindsym Mod4+Ctrl+Mod1+Shift+space exec /home/deck/.config/sway/cycle-wallpaper.sh prev
 
 # ── Start Waybar automatically (with the bundled config + style) ──────────────
 exec_always --no-startup-id pkill waybar; waybar -c /home/deck/.config/sway/waybar.config -s /home/deck/.config/sway/waybar.css

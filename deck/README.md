@@ -114,8 +114,8 @@ apps, windows, and workspaces. Nothing requires a mouse.
 
 | Shortcut | Action |
 |---|---|
-| `Super + Ctrl + J` | Next wallpaper |
-| `Super + Ctrl + K` | Previous wallpaper |
+| `Super + Ctrl + Alt + Space` | Next wallpaper (the claw grip) |
+| `Super + Ctrl + Alt + Shift + Space` | Previous wallpaper |
 
 ---
 
