@@ -114,6 +114,19 @@ chmod +x "${CONFIG_DIR}/set-wallpaper.sh" \
          "${CONFIG_DIR}/cycle-wallpaper.sh" \
          "${CONFIG_DIR}/entry.sh"
 
+# Seed wallpapers from the repo so set-wallpaper.sh has something to show.
+# Without at least one image in wallpaper/, set-wallpaper.sh exits early and
+# the desktop comes up with no background.
+WALLPAPER_SRC="$(cd "${SCRIPT_DIR}/.." && pwd)/wallpapers"
+if [[ -d "$WALLPAPER_SRC" ]]; then
+    find "$WALLPAPER_SRC" -maxdepth 1 -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) \
+        -exec cp {} "${CONFIG_DIR}/wallpaper/" \;
+    log_ok "Wallpapers copied from ${WALLPAPER_SRC}"
+else
+    log_warn "No wallpapers found at ${WALLPAPER_SRC}; add images to ${CONFIG_DIR}/wallpaper/"
+fi
+
 log_ok "Config files copied"
 
 # ── step 5: print Non-Steam Game instructions ────────────────────────────────

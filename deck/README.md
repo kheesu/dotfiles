@@ -63,56 +63,59 @@ random one on startup; `cycle-wallpaper.sh` rotates through them at runtime.
 
 ## Keybinds
 
-The philosophy: **Alt** owns all window and workspace operations;
-**Super** launches apps. Nothing requires a mouse.
-
-### Focus & move (vim hjkl)
-
-| Shortcut | Action |
-|---|---|
-| `Alt + H/J/K/L` | Move focus left/down/up/right |
-| `Alt + Shift + H/J/K/L` | Swap window in direction |
-
-### Resize
-
-| Shortcut | Action |
-|---|---|
-| `Alt + U / P` | Shrink / grow width |
-| `Alt + I / O` | Grow / shrink height |
-
-### Window control
-
-| Shortcut | Action |
-|---|---|
-| `Alt + Space` | Float window |
-| `Alt + Shift + Space` | Un-float window |
-| `Alt + Shift + Q` | Kill window |
-| `Alt + Shift + R` | Reload Sway config |
-
-### Workspaces (1–10)
-
-| Shortcut | Action |
-|---|---|
-| `Alt + 1–9, 0` | Switch to workspace |
-| `Alt + Shift + 1–9, 0` | Move window to workspace (and follow) |
+The philosophy mirrors the root project: **Super** owns everything —
+apps, windows, and workspaces. Nothing requires a mouse.
 
 ### Applications
 
 | Shortcut | Action |
 |---|---|
-| `Super + 1` | Workspace 1 → Brave |
-| `Super + 2` | Workspace 2 → Foot terminal |
-| `Super + 5` | Workspace 5 → Obsidian |
-| `Super + 8` | Workspace 8 → Nautilus |
-| `Super + 0` | Workspace 10 → Vesktop (Discord) |
-| `Ctrl + Alt + Space` | Rofi app launcher |
+| `Super + Return` | Foot terminal |
+| `Super + Space` | Rofi app launcher |
+| `Super + B` | Brave |
+| `Super + D` | Vesktop (Discord) |
+| `Super + O` | Obsidian |
+| `Super + E` | Nautilus |
+
+### Window control
+
+| Shortcut | Action |
+|---|---|
+| `Super + W` | Kill window |
+| `Super + F` | Fullscreen |
+| `Super + V` | Toggle floating |
+| `Super + Shift + R` | Reload Sway config |
+| `Super + Shift + M` | Exit Sway |
+
+### Focus & move (vim hjkl)
+
+| Shortcut | Action |
+|---|---|
+| `Super + H/J/K/L` | Move focus left/down/up/right |
+| `Super + Shift + H/J/K/L` | Move window in direction |
+
+### Resize
+
+| Shortcut | Action |
+|---|---|
+| `Super + Alt + H/L` | Shrink / grow width |
+| `Super + Alt + K/J` | Shrink / grow height |
+
+### Workspaces (1–10)
+
+| Shortcut | Action |
+|---|---|
+| `Super + 1–9, 0` | Switch to workspace |
+| `Super + Shift + 1–9, 0` | Move window to workspace |
+| `Super + S` | Show scratchpad |
+| `Super + Shift + S` | Move window to scratchpad |
 
 ### Wallpaper
 
 | Shortcut | Action |
 |---|---|
-| `Super + J` | Next wallpaper |
-| `Super + K` | Previous wallpaper |
+| `Super + Ctrl + J` | Next wallpaper |
+| `Super + Ctrl + K` | Previous wallpaper |
 
 ---
 

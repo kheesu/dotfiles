@@ -1,4 +1,5 @@
-# Configuration
+# Configuration — Sway (SwayFX) for Steam Deck
+# Super-centric, mirroring the root project's Hyprland keybinds.
 output * resolution 1920x1080
 exec_always /home/deck/.config/sway/set-wallpaper.sh
 
@@ -19,73 +20,70 @@ blur_radius 5
 blur_passes 2
 default_dim_inactive 0.1
 
-# Focus windows
-bindsym Mod1+h focus left
-bindsym Mod1+j focus down
-bindsym Mod1+k focus up
-bindsym Mod1+l focus right
+# ── Applications (Super + key, mirrors root hyprland.conf) ────────────────────
+bindsym Mod4+Return exec foot
+bindsym Mod4+space  exec rofi -show drun -theme default
+bindsym Mod4+b      exec brave
+bindsym Mod4+d      exec vesktop
+bindsym Mod4+o      exec obsidian
+bindsym Mod4+e      exec nautilus
 
-# Move windows
-bindsym Shift+Mod1+h mark swap, focus left, swap container with mark swap
-bindsym Shift+Mod1+j mark swap, focus down, swap container with mark swap
-bindsym Shift+Mod1+k mark swap, focus up, swap container with mark swap
-bindsym Shift+Mod1+l mark swap, focus right, swap container with mark swap
+# ── Window controls (Super) ───────────────────────────────────────────────────
+bindsym Mod4+w       kill
+bindsym Mod4+f       fullscreen
+bindsym Mod4+v       floating toggle
+bindsym Mod4+Shift+r reload
+bindsym Mod4+Shift+m exit
 
-# Focus workspace
-bindsym Mod1+1 workspace 1
-bindsym Mod1+2 workspace 2
-bindsym Mod1+3 workspace 3
-bindsym Mod1+4 workspace 4
-bindsym Mod1+5 workspace 5
-bindsym Mod1+6 workspace 6
-bindsym Mod1+7 workspace 7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
-bindsym Mod1+0 workspace 10
+# ── Vim focus (Super + hjkl) ──────────────────────────────────────────────────
+bindsym Mod4+h focus left
+bindsym Mod4+j focus down
+bindsym Mod4+k focus up
+bindsym Mod4+l focus right
 
-# Move workspace
-bindsym Shift+Mod1+1 move container to workspace 1; workspace 1
-bindsym Shift+Mod1+2 move container to workspace 2; workspace 2
-bindsym Shift+Mod1+3 move container to workspace 3; workspace 3
-bindsym Shift+Mod1+4 move container to workspace 4; workspace 4
-bindsym Shift+Mod1+5 move container to workspace 5; workspace 5
-bindsym Shift+Mod1+6 move container to workspace 6; workspace 6
-bindsym Shift+Mod1+7 move container to workspace 7; workspace 7
-bindsym Shift+Mod1+8 move container to workspace 8; workspace 8
-bindsym Shift+Mod1+9 move container to workspace 9; workspace 9
-bindsym Shift+Mod1+0 move container to workspace 10; workspace 10
+# ── Vim move window (Super + Shift + hjkl) ────────────────────────────────────
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+j move down
+bindsym Mod4+Shift+k move up
+bindsym Mod4+Shift+l move right
 
-# Applications
-bindsym Mod4+1 workspace 1; exec brave
-bindsym Mod4+2 workspace 2; exec foot
-bindsym Mod4+5 workspace 5; exec obsidian
-bindsym Mod4+8 workspace 8; exec nautilus
-bindsym Mod4+0 workspace 10; exec vesktop
+# ── Resize (Super + Alt + hjkl) ───────────────────────────────────────────────
+bindsym Mod4+Mod1+h resize shrink width 30px
+bindsym Mod4+Mod1+l resize grow width 30px
+bindsym Mod4+Mod1+k resize shrink height 30px
+bindsym Mod4+Mod1+j resize grow height 30px
 
-# Resize Windows
-bindsym Mod1+u resize shrink width 20px
-bindsym Mod1+p resize grow width 20px
-bindsym Mod1+i resize grow height 20px
-bindsym Mod1+o resize shrink height 20px
+# ── Switch workspace (Super + 1–0) ────────────────────────────────────────────
+bindsym Mod4+1 workspace 1
+bindsym Mod4+2 workspace 2
+bindsym Mod4+3 workspace 3
+bindsym Mod4+4 workspace 4
+bindsym Mod4+5 workspace 5
+bindsym Mod4+6 workspace 6
+bindsym Mod4+7 workspace 7
+bindsym Mod4+8 workspace 8
+bindsym Mod4+9 workspace 9
+bindsym Mod4+0 workspace 10
 
-# Layout Orientation
-bindsym Mod1+minus move right
-bindsym Mod1+backslash move down
+# ── Move window to workspace (Super + Shift + 1–0) ────────────────────────────
+bindsym Mod4+Shift+1 move container to workspace 1
+bindsym Mod4+Shift+2 move container to workspace 2
+bindsym Mod4+Shift+3 move container to workspace 3
+bindsym Mod4+Shift+4 move container to workspace 4
+bindsym Mod4+Shift+5 move container to workspace 5
+bindsym Mod4+Shift+6 move container to workspace 6
+bindsym Mod4+Shift+7 move container to workspace 7
+bindsym Mod4+Shift+8 move container to workspace 8
+bindsym Mod4+Shift+9 move container to workspace 9
+bindsym Mod4+Shift+0 move container to workspace 10
 
-# Window Controls
-bindsym Mod1+Space floating enable
-bindsym Shift+Mod1+Space floating disable
-bindsym Shift+Mod1+q kill
+# ── Scratchpad (Super + S) ────────────────────────────────────────────────────
+bindsym Mod4+s       scratchpad show
+bindsym Mod4+Shift+s move scratchpad
 
-# Reload Config
-bindsym Shift+Mod1+r reload
+# ── Cycle wallpaper (Super + Ctrl + j/k, avoids the focus binds) ──────────────
+bindsym Mod4+Ctrl+j exec /home/deck/.config/sway/cycle-wallpaper.sh next
+bindsym Mod4+Ctrl+k exec /home/deck/.config/sway/cycle-wallpaper.sh prev
 
-# Cycle Wallpaper
-bindsym Mod4+j exec /home/deck/.config/sway/cycle-wallpaper.sh next
-bindsym Mod4+k exec /home/deck/.config/sway/cycle-wallpaper.sh prev
-
-# Rofi
-bindsym control+Mod1+space exec rofi -show drun -theme default
-
-# Start Waybar automatically
-exec --no-startup-id /home/deck/.nix-profile/bin/waybar
+# ── Start Waybar automatically (with the bundled config + style) ──────────────
+exec_always --no-startup-id pkill waybar; waybar -c /home/deck/.config/sway/waybar.config -s /home/deck/.config/sway/waybar.css
