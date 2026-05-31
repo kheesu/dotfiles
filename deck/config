@@ -31,7 +31,7 @@ default_dim_inactive 0.1
 # those three are launched with LD_LIBRARY_PATH cleared.
 bindsym Mod4+Return exec foot
 bindsym Mod4+space  exec rofi -show drun -theme default
-bindsym Mod4+b      exec env -u LD_LIBRARY_PATH brave --disable-gpu --ozone-platform-hint=auto
+bindsym Mod4+b      exec env -u LD_LIBRARY_PATH brave --disable-gpu --no-sandbox --ozone-platform-hint=auto
 bindsym Mod4+d      exec env -u LD_LIBRARY_PATH vesktop
 bindsym Mod4+o      exec env -u LD_LIBRARY_PATH obsidian
 bindsym Mod4+e      exec nautilus
