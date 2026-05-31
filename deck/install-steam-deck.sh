@@ -72,11 +72,11 @@ nix profile install \
     nixpkgs#waybar \
     nixpkgs#rofi \
     nixpkgs#foot \
-    nixpkgs#nerdfonts \
+    nixpkgs#nerd-fonts.jetbrains-mono \
     nixpkgs#brave \
     nixpkgs#obsidian \
-    nixpkgs#kdePackages.dolphin \
-    nixpkgs#discord \
+    nixpkgs#nautilus \
+    nixpkgs#vesktop \
     --option experimental-features 'nix-command flakes'
 
 log_ok "Packages installed"

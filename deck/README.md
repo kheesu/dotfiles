@@ -103,9 +103,8 @@ The philosophy: **Alt** owns all window and workspace operations;
 | `Super + 1` | Workspace 1 → Brave |
 | `Super + 2` | Workspace 2 → Foot terminal |
 | `Super + 5` | Workspace 5 → Obsidian |
-| `Super + 8` | Workspace 8 → Dolphin |
-| `Super + 9` | Workspace 9 → Spotify |
-| `Super + 0` | Workspace 10 → Discord |
+| `Super + 8` | Workspace 8 → Nautilus |
+| `Super + 0` | Workspace 10 → Vesktop (Discord) |
 | `Ctrl + Alt + Space` | Rofi app launcher |
 
 ### Wallpaper
