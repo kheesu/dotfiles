@@ -1,0 +1,95 @@
+# Configuration
+output * resolution 1920x1080
+exec_always /home/deck/.config/sway/set-wallpaper.sh
+
+# Border
+gaps inner 5
+gaps outer 5
+for_window [class=".*"] border pixel 3
+client.focused          #FFDF20 #FFDF20 #FFDF20 #FFDF20
+client.focused_inactive #FFDF20 #FFDF20 #FFDF20 #FFDF20
+client.unfocused        #BCBCBC #BCBCBC #BCBCBC #BCBCBC
+client.urgent           #BCBCBC #BCBCBC #BCBCBC #BCBCBC
+
+# SwayFX
+corner_radius 12
+blur enable
+blur_xray enable
+blur_radius 5
+blur_passes 2
+default_dim_inactive 0.1
+
+# Focus windows
+bindsym Mod1+h focus left
+bindsym Mod1+j focus down
+bindsym Mod1+k focus up
+bindsym Mod1+l focus right
+
+# Move windows
+bindsym Shift+Mod1+h mark swap, focus left, swap container with mark swap
+bindsym Shift+Mod1+j mark swap, focus down, swap container with mark swap
+bindsym Shift+Mod1+k mark swap, focus up, swap container with mark swap
+bindsym Shift+Mod1+l mark swap, focus right, swap container with mark swap
+
+# Focus workspace
+bindsym Mod1+1 workspace 1
+bindsym Mod1+2 workspace 2
+bindsym Mod1+3 workspace 3
+bindsym Mod1+4 workspace 4
+bindsym Mod1+5 workspace 5
+bindsym Mod1+6 workspace 6
+bindsym Mod1+7 workspace 7
+bindsym Mod1+8 workspace 8
+bindsym Mod1+9 workspace 9
+bindsym Mod1+0 workspace 10
+
+# Move workspace
+bindsym Shift+Mod1+1 move container to workspace 1; workspace 1
+bindsym Shift+Mod1+2 move container to workspace 2; workspace 2
+bindsym Shift+Mod1+3 move container to workspace 3; workspace 3
+bindsym Shift+Mod1+4 move container to workspace 4; workspace 4
+bindsym Shift+Mod1+5 move container to workspace 5; workspace 5
+bindsym Shift+Mod1+6 move container to workspace 6; workspace 6
+bindsym Shift+Mod1+7 move container to workspace 7; workspace 7
+bindsym Shift+Mod1+8 move container to workspace 8; workspace 8
+bindsym Shift+Mod1+9 move container to workspace 9; workspace 9
+bindsym Shift+Mod1+0 move container to workspace 10; workspace 10
+
+# Applications
+bindsym Mod4+1 workspace 1; exec brave
+bindsym Mod4+2 workspace 2; exec foot
+bindsym Mod4+5 workspace 5; exec obsidian
+bindsym Mod4+8 workspace 8; exec dolphin
+bindsym Mod4+9 workspace 9; exec spotify
+bindsym Mod4+0 workspace 10; exec discord
+
+# Resize Windows
+bindsym Mod1+u resize shrink width 20px
+bindsym Mod1+p resize grow width 20px
+bindsym Mod1+i resize grow height 20px
+bindsym Mod1+o resize shrink height 20px
+
+# Layout Orientation
+bindsym Mod1+minus move right
+bindsym Mod1+backslash move down
+
+# Window Controls
+bindsym Mod1+Space floating enable
+bindsym Shift+Mod1+Space floating disable
+bindsym Shift+Mod1+q kill
+
+# Reload Config
+bindsym Shift+Mod1+r reload
+
+# Cycle Wallpaper
+bindsym Mod4+j exec /home/deck/.config/sway/cycle-wallpaper.sh next
+bindsym Mod4+k exec /home/deck/.config/sway/cycle-wallpaper.sh prev
+
+# Rofi
+bindsym control+Mod1+space exec rofi -show drun -theme default
+
+# Start kmonad automatically
+exec --no-startup-id /home/deck/.config/kmonad/setup.sh
+
+# Start Waybar automatically
+exec --no-startup-id /home/deck/.nix-profile/bin/waybar
