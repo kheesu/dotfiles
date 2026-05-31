@@ -1,84 +1,36 @@
 {
-  description = "Quickshell Pebbles bar for Hyprland on Steam Deck";
+  description = "Sway + Waybar for Steam Deck";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, flake-utils, quickshell }:
+  outputs = { self, nixpkgs, flake-utils, nixgl }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        qs   = quickshell.packages.${system}.default;
       in
       {
-        # ── development environment (nix develop) ──────────────────
         devShells.default = pkgs.mkShell {
-          buildInputs = [ qs ] ++ (with pkgs; [
-            hyprland
-
-            # Fonts
-            jetbrains-mono
-            inter
-
-            # Audio
-            pipewire
-            wireplumber
-            pulseaudio
-
-            # Network & Bluetooth
-            networkmanager
-            bluez
-            bluez-utils
-
-            # System utilities
+          buildInputs = with pkgs; [
+            sway
+            waybar
+            rofi-wayland
+            foot
+            nerdfonts
             brightnessctl
             grim
             slurp
-
-            # Optional: night light + events
-            gammastep
-            wlogout
-            khal
-
-            # Utilities for the install script
-            curl
-            git
-            unzip
-            jq
-          ]);
+            wl-clipboard
+          ];
 
           shellHook = ''
-            echo "Quickshell Pebbles development environment loaded"
+            echo "Sway + Waybar Steam Deck environment loaded"
             echo "Run: ./install-steam-deck.sh"
           '';
         };
-
-        # ── standalone app derivation (for reference) ──────────────
-        packages.pebbles = pkgs.stdenv.mkDerivation {
-          name = "quickshell-pebbles";
-          version = "1.0";
-
-          src = ./.;
-
-          installPhase = ''
-            mkdir -p $out/config/quickshell
-            cp -r . $out/config/quickshell/
-          '';
-
-          meta = with pkgs.lib; {
-            description = "Quickshell Pebbles bar for Hyprland";
-            license = licenses.mit;
-            platforms = platforms.linux;
-          };
-        };
-
-        packages.default = self.packages.${system}.pebbles;
       }
     );
 }
