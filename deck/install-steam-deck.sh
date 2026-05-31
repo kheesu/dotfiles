@@ -70,7 +70,6 @@ log_info "Installing Sway + Waybar via nix…"
 nix profile install \
     nixpkgs#sway \
     nixpkgs#waybar \
-    nixpkgs#nixgl.nixGLDefault \
     nixpkgs#rofi-wayland \
     nixpkgs#foot \
     nixpkgs#nerdfonts \
