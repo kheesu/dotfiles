@@ -1,5 +1,5 @@
-# Quickshell — Pebbles bar for Hyprland (Arch Linux)
-## Rose Pine · floating pill modules · modular panels
+# Quickshell — Pebbles bar for Hyprland (Steam Deck)
+## Catppuccin Mocha · floating pill modules · modular panels · keyboard-centric
 
 ```
 ~/.config/quickshell/
@@ -96,34 +96,87 @@ quickshell
 
 ## Keybinds (defined in hyprland.conf)
 
+Every action is reachable without a mouse. `Super` owns window management
+and workspaces; `Alt` owns resize; `Super+[key]` launches apps.
+
+### Shell panels
 | Shortcut | Action |
 |---|---|
-| `Super + Space` / `Super + D` | App launcher |
+| `Super + Space` | App launcher (Quickshell IPC) |
 | `Super + S` | Quick settings panel |
-| `Super + C` | Calendar panel |
+| `Super + G` | Calendar panel |
+
+### Applications
+| Shortcut | Action |
+|---|---|
 | `Super + Return` | kitty terminal |
+| `Super + B` | Firefox |
+| `Super + E` | Nautilus file manager |
+| `Super + O` | Obsidian |
+| `Super + D` | Discord |
+
+### Window management
+| Shortcut | Action |
+|---|---|
 | `Super + Q` | Kill active window |
 | `Super + F` | Fullscreen |
+| `Super + Shift + F` | Maximise |
 | `Super + V` | Toggle floating |
-| `Super + H/J/K/L` | Move focus |
-| `Super + 1-9` | Switch workspace |
-| `Super + Shift + 1-9` | Move window to workspace |
+| `Super + P` | Pseudo-tile (dwindle) |
+| `Super + Shift + L` | Lock screen (hyprlock) |
+
+### Focus & move (vim hjkl)
+| Shortcut | Action |
+|---|---|
+| `Super + H/J/K/L` | Move focus left/down/up/right |
+| `Super + Shift + H/J/K/L` | Swap window in direction |
+
+### Resize (Alt layer — no modal state)
+| Shortcut | Action |
+|---|---|
+| `Alt + H/L` | Shrink / grow width |
+| `Alt + K/J` | Shrink / grow height |
+
+### Workspaces (1–10)
+| Shortcut | Action |
+|---|---|
+| `Super + 1–9, 0` | Switch to workspace |
+| `Super + Shift + 1–9, 0` | Move window to workspace |
+| `Super + Tab` | Next workspace |
+| `Super + Shift + Tab` | Previous workspace |
+| `Super + Minus` | Toggle scratchpad |
+| `Super + Shift + Minus` | Send window to scratchpad |
+
+### Wallpaper
+| Shortcut | Action |
+|---|---|
+| `Super + Ctrl + J` | Next wallpaper |
+| `Super + Ctrl + K` | Previous wallpaper |
+
+### Media & system
+| Shortcut | Action |
+|---|---|
 | `Print` | Area screenshot → clipboard |
 | `Shift + Print` | Full screenshot → ~/Pictures/screenshots |
-| `XF86Audio*` | Volume up/down/mute |
-| `XF86Brightness*` | Brightness up/down |
+| `XF86AudioRaiseVolume/LowerVolume` | Volume +5% / -5% |
+| `XF86AudioMute` | Toggle mute |
+| `XF86AudioMicMute` | Toggle mic mute |
+| `XF86AudioPlay` | Play / pause |
+| `XF86MonBrightnessUp/Down` | Brightness +5% / -5% |
 
 ---
 
 ## Customisation
 
 ### Change colours
-Edit `components/Colors.qml`. Every surface, text, and accent references
-this singleton — a one-file retheme is possible.
+The Hyprland borders use Catppuccin Mocha (Mauve → Blue gradient).
+Edit `components/Colors.qml` for the Quickshell UI — every surface, text,
+and accent references this singleton, so a one-file retheme is possible.
 
-### Add a workspace count
-In `bar/Workspaces.qml` change `Array.from({ length: 9 }, …)` to your
-preferred count (e.g. `10`).
+### Change workspace count
+The config ships with 10 workspaces (Super+1–0).
+In `bar/Workspaces.qml` change `Array.from({ length: 10 }, …)` to match
+if you want a different number displayed in the bar.
 
 ### Calendar events
 Install `khal` and run `khal configure` to point it at your CalDAV
