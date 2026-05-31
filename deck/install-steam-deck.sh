@@ -70,7 +70,7 @@ log_info "Installing Sway + Waybar via nix…"
 nix profile install \
     nixpkgs#sway \
     nixpkgs#waybar \
-    nixpkgs#rofi-wayland \
+    nixpkgs#rofi \
     nixpkgs#foot \
     nixpkgs#nerdfonts \
     --option experimental-features 'nix-command flakes'
