@@ -43,7 +43,8 @@ chmod +x install-steam-deck.sh
 The installer will:
 1. Install Nix (single-user, no daemon) if not already present
 2. Enable Nix flakes in `~/.config/nix/nix.conf`
-3. Install Sway, Waybar, Rofi, Foot, and Nerd Fonts via `nix profile install`
+3. Install SwayFX, Waybar, Rofi, Foot, Nerd Fonts, nixGL, and the launcher
+   apps (Brave, Obsidian, Dolphin, Discord) via `nix profile install`
 4. Copy all config files to `~/.config/sway/`
 5. Print instructions for adding Sway as a Non-Steam Game
 

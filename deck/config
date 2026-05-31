@@ -88,8 +88,5 @@ bindsym Mod4+k exec /home/deck/.config/sway/cycle-wallpaper.sh prev
 # Rofi
 bindsym control+Mod1+space exec rofi -show drun -theme default
 
-# Start kmonad automatically
-exec --no-startup-id /home/deck/.config/kmonad/setup.sh
-
 # Start Waybar automatically
 exec --no-startup-id /home/deck/.nix-profile/bin/waybar

@@ -68,14 +68,30 @@ fi
 log_info "Installing Sway + Waybar via nix…"
 
 nix profile install \
-    nixpkgs#sway \
+    nixpkgs#swayfx \
     nixpkgs#waybar \
     nixpkgs#rofi \
     nixpkgs#foot \
     nixpkgs#nerdfonts \
+    nixpkgs#brave \
+    nixpkgs#obsidian \
+    nixpkgs#kdePackages.dolphin \
+    nixpkgs#discord \
     --option experimental-features 'nix-command flakes'
 
 log_ok "Packages installed"
+
+# ── step 3b: install nixGL ────────────────────────────────────────────────────
+# Nix-built Sway needs nixGL so its Mesa/OpenGL matches the host GPU drivers.
+# nixGL lives in its own flake, not nixpkgs. entry.sh launches `nixGL sway`.
+log_info "Installing nixGL…"
+
+nix profile install \
+    --impure \
+    github:nix-community/nixGL#nixGLDefault \
+    --option experimental-features 'nix-command flakes'
+
+log_ok "nixGL installed"
 
 # ── step 4: copy config files ────────────────────────────────────────────────
 log_info "Copying config files to ${CONFIG_DIR}…"
