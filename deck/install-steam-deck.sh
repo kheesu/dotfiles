@@ -67,7 +67,10 @@ fi
 # ── step 3: install packages via nix ────────────────────────────────────────
 log_info "Installing Sway + Waybar via nix…"
 
-nix profile install \
+# obsidian (and brave) are unfree; allow them for this invocation. --impure lets
+# nix read NIXPKGS_ALLOW_UNFREE from the environment.
+NIXPKGS_ALLOW_UNFREE=1 nix profile install \
+    --impure \
     nixpkgs#swayfx \
     nixpkgs#waybar \
     nixpkgs#rofi \
