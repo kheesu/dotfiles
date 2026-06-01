@@ -76,7 +76,7 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#rofi \
     nixpkgs#foot \
     nixpkgs#nerd-fonts.jetbrains-mono \
-    nixpkgs#brave \
+    nixpkgs#firefox \
     nixpkgs#obsidian \
     nixpkgs#nautilus \
     nixpkgs#vesktop \

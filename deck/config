@@ -32,7 +32,7 @@ default_dim_inactive 0.1
 # where the SUID sandbox helper is unavailable.
 bindsym Mod4+Return exec foot
 bindsym Mod4+space  exec rofi -show drun -theme default
-bindsym Mod4+b      exec brave --ozone-platform=wayland --no-sandbox
+bindsym Mod4+b      exec firefox
 bindsym Mod4+d      exec vesktop --ozone-platform=wayland --no-sandbox
 bindsym Mod4+o      exec obsidian --ozone-platform=wayland --no-sandbox
 bindsym Mod4+e      exec nautilus

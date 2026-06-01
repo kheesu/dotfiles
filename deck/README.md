@@ -72,7 +72,7 @@ apps, windows, and workspaces. Nothing requires a mouse.
 |---|---|
 | `Super + Return` | Foot terminal |
 | `Super + Space` | Rofi app launcher |
-| `Super + B` | Brave |
+| `Super + B` | Firefox |
 | `Super + D` | Vesktop (Discord) |
 | `Super + O` | Obsidian |
 | `Super + E` | Nautilus |
