@@ -65,15 +65,21 @@ Fix it by forcing gamescope to render at native 4K. Set the **Launch Options**
 on the sway entry in Steam:
 
 ```
-gamescope -W 3840 -H 2160 -f --force-grab-cursor -- %command%
+gamescope -W 3840 -H 2160 -f -- %command%
 ```
 
 - `-W 3840 -H 2160` — render at true 4K so pointer space matches sway's output
-- `--force-grab-cursor` — fixes confined/relative mouse feel
 - `-f` — fullscreen
 
 Then in `~/.config/sway/config` keep `output * resolution 3840x2160 scale 2`
 (200% UI). Adjust the scale to taste (1.5 = 150%).
+
+**If it won't launch with these options**, your gamescope build may not support
+nesting some flags. Step down one at a time:
+- Remove any extra flags, keep only `gamescope -W 3840 -H 2160 -- %command%`
+- If nesting gamescope fails entirely, remove the launch options and instead
+  set the sway output to match gamescope's real size so the mouse aligns:
+  `output * resolution 1920x1080 scale 1` (no true-4K, but no invisible wall).
 
 ### Place wallpapers
 
