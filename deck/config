@@ -3,7 +3,7 @@
 # Let sway use the monitor's preferred resolution and scale.
 # Forcing a specific resolution (e.g. 1920x1080) when the display reports a
 # different preferred mode breaks cursor hit-testing and scales the cursor wrong.
-output * resolution preferred scale 1
+output * scale 1
 
 seat seat0 xcursor_theme default 24
 
