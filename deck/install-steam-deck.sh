@@ -136,7 +136,7 @@ nix profile install \
 
 # Config GUI — separate from the bundle; does not need to share the store path.
 nix profile install \
-    nixpkgs#fcitx5-configtool \
+    nixpkgs#qt6Packages.fcitx5-configtool \
     --option experimental-features 'nix-command flakes'
 
 log_ok "fcitx5 installed"
