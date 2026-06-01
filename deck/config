@@ -1,7 +1,10 @@
 # Configuration — Sway (SwayFX) for Steam Deck
 # Super-centric, mirroring the root project's Hyprland keybinds.
-# No output resolution set — sway uses the monitor's preferred mode when
-# driving real DRM/KMS outputs.
+# In Game Mode, sway runs NESTED inside gamescope (output appears as X11-1).
+# This line sets the size of that nested surface. Set it to your external
+# monitor's native resolution. gamescope itself must also be running at this
+# resolution (Steam → Settings → Display) for a sharp 1:1 image.
+output * resolution 3840x2160
 
 seat seat0 xcursor_theme default 24
 
