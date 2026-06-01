@@ -54,6 +54,27 @@ The installer will:
 2. Set the launch target to `~/.config/sway/entry.sh`
 3. Launch it from your Steam library to enter the Sway desktop
 
+#### Resolution & mouse on an external 4K monitor
+
+In Game Mode, sway runs nested inside gamescope. By default gamescope renders
+at ~1080p and upscales, which makes the desktop look soft and confines the
+mouse to a sub-region (the "invisible wall" — pointer input is in gamescope's
+real resolution while sway's output is set larger).
+
+Fix it by forcing gamescope to render at native 4K. Set the **Launch Options**
+on the sway entry in Steam:
+
+```
+gamescope -W 3840 -H 2160 -f --force-grab-cursor -- %command%
+```
+
+- `-W 3840 -H 2160` — render at true 4K so pointer space matches sway's output
+- `--force-grab-cursor` — fixes confined/relative mouse feel
+- `-f` — fullscreen
+
+Then in `~/.config/sway/config` keep `output * resolution 3840x2160 scale 2`
+(200% UI). Adjust the scale to taste (1.5 = 150%).
+
 ### Place wallpapers
 
 Drop images into `~/.config/sway/wallpaper/`. `set-wallpaper.sh` picks a
