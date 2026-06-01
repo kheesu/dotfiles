@@ -23,9 +23,9 @@
           # and wraps the fcitx5 binary with FCITX_ADDON_DIRS pointing to it.
           fcitx5-input = pkgs.qt6Packages.fcitx5-with-addons.override {
             addons = with pkgs; [
-              qt6Packages.fcitx5-hangul  # Korean (Hangul)
-              qt6Packages.fcitx5-mozc    # Japanese (Mozc — larger dictionary than Anthy)
-              fcitx5-gtk                 # GTK2/3/4 IM module (Firefox, Nautilus, etc.)
+              fcitx5-hangul  # Korean (Hangul)
+              fcitx5-mozc    # Japanese (Mozc — larger dictionary than Anthy)
+              fcitx5-gtk     # GTK2/3/4 IM module (Firefox, Nautilus, etc.)
             ];
           };
         };
