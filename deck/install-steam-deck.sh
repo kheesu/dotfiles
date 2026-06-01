@@ -124,6 +124,8 @@ mkdir -p "${CONFIG_DIR}/wallpaper"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+mkdir -p "${HOME}/.config/foot"
+cp "${SCRIPT_DIR}/foot/foot.ini"    "${HOME}/.config/foot/foot.ini"
 cp "${SCRIPT_DIR}/config"            "${CONFIG_DIR}/config"
 cp "${SCRIPT_DIR}/waybar.config"     "${CONFIG_DIR}/waybar.config"
 cp "${SCRIPT_DIR}/waybar.css"        "${CONFIG_DIR}/waybar.css"
