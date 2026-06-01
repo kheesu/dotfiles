@@ -40,7 +40,7 @@ default_dim_inactive 0.1
 # Chromium restarts it endlessly. --no-sandbox is required on non-NixOS hosts
 # where the SUID sandbox helper is unavailable.
 bindsym Mod4+Return exec foot --working-directory="${HOME}"
-bindsym Mod4+space  exec rofi -show drun -theme default
+bindsym Mod4+space  exec rofi -show drun
 bindsym Mod4+b      exec firefox
 bindsym Mod4+d      exec vesktop --ozone-platform=wayland --no-sandbox
 bindsym Mod4+o      exec obsidian --ozone-platform=wayland --no-sandbox
