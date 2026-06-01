@@ -1,9 +1,8 @@
 # Configuration — Sway (SwayFX) for Steam Deck
 # Super-centric, mirroring the root project's Hyprland keybinds.
-# Let sway use the monitor's preferred resolution and scale.
-# Forcing a specific resolution (e.g. 1920x1080) when the display reports a
-# different preferred mode breaks cursor hit-testing and scales the cursor wrong.
-output * scale 1
+# Set your monitor's native resolution here.
+# Run 'swaymsg -t get_outputs' to see what modes your monitor supports.
+output * resolution 1920x1080
 
 seat seat0 xcursor_theme default 24
 
