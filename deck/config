@@ -95,8 +95,6 @@ bindsym Mod4+Ctrl+Mod1+space       exec /home/deck/.config/sway/cycle-wallpaper.
 bindsym Mod4+Ctrl+Mod1+Shift+space exec /home/deck/.config/sway/cycle-wallpaper.sh prev
 
 # ── Start Waybar automatically (with the bundled config + style) ──────────────
-# Two separate lines: a ';' on one exec_always line is parsed by sway as its
-# own command separator (not the shell's), which would split this into a bad
-# directive and Waybar would never start. pkill first so reloads don't stack.
-exec_always --no-startup-id pkill waybar
-exec_always --no-startup-id waybar -c /home/deck/.config/sway/waybar.config -s /home/deck/.config/sway/waybar.css
+# Use a shell wrapper so pkill+waybar run sequentially in one exec_always.
+# Full path to waybar because sway's PATH at startup may not include ~/.nix-profile/bin.
+exec_always /bin/sh -c 'pkill waybar; /home/deck/.nix-profile/bin/waybar -c /home/deck/.config/sway/waybar.config -s /home/deck/.config/sway/waybar.css'
