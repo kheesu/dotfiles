@@ -106,14 +106,14 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
 log_ok "Packages installed"
 
 # ── step 3b: install nixGL ────────────────────────────────────────────────────
-# Nix-built Sway needs nixGL so its Mesa/OpenGL matches the host GPU drivers.
-# nixGL lives in its own flake, not nixpkgs. entry.sh launches `nixGL sway`.
-log_info "Installing nixGL…"
+# Use the channel-based nixgl.auto.nixGLDefault (same method as boseriko/sway).
+# The 'auto' variant detects the host GPU at install time, which is required
+# for sway to drive real DRM outputs instead of falling back to X11.
+log_info "Installing nixGL via channel…"
 
-nix profile install \
-    --impure \
-    github:nix-community/nixGL#nixGLDefault \
-    --option experimental-features 'nix-command flakes'
+nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl
+nix-channel --update nixgl
+nix-env --impure -iA nixgl.auto.nixGLDefault
 
 log_ok "nixGL installed"
 
