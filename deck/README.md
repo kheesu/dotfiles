@@ -101,6 +101,7 @@ apps, windows, and workspaces. Nothing requires a mouse.
 | `Super + Space` | Rofi app launcher |
 | `Super + B` | Firefox |
 | `Super + D` | Vesktop (Discord) |
+| `Super + Shift + D` | Slack |
 | `Super + O` | Obsidian |
 | `Super + E` | Nautilus |
 
