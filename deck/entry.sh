@@ -5,11 +5,10 @@ unset LD_PRELOAD
 # Steam resets the PATH, so source nix again to restore it
 . /home/deck/.nix-profile/etc/profile.d/nix.sh
 
-# Run sway directly using the system Mesa rather than nixGL.
-# nixGL wraps sway with an OpenGL shim that on SteamOS ends up routing
-# through an X11 backend (output: X11-1, 1024x768) instead of real
-# DRM/KMS outputs, giving a fake square low-res display.
-# SteamOS ships its own Mesa that sway can use directly via WLR_RENDERER.
-export WLR_RENDERER=vulkan
+# nixGL provides the Mesa libraries that Nix-built sway needs.
+# WLR_BACKENDS=drm,libinput forces wlroots to use the real DRM/KMS output
+# instead of falling back to the X11 backend (which gave the fake 1024x768
+# X11-1 output). WLR_NO_HARDWARE_CURSORS=1 avoids cursor plane issues.
+export WLR_BACKENDS=drm,libinput
 export WLR_NO_HARDWARE_CURSORS=1
-exec sway
+exec nixGL sway
