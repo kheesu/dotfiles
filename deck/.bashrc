@@ -110,7 +110,15 @@ ex() {
 mkcd() { mkdir -p "$1" && cd "$1"; }
 
 # ------------------------------------------------------------------------------
-# 6. STARTUP BANNER
+# 6. READLINE — fix foot legacy kitty keyboard protocol sequences
+# ------------------------------------------------------------------------------
+# foot sends modifier-encoded sequences for some keys even when apps don't
+# request KKP. Bind the most common ones so bash sees the plain character.
+bind '"\e[27;2;126~": "~"' 2>/dev/null   # Shift+~ (tilde)
+bind '"\e[27;2;96~":  "`"' 2>/dev/null   # Shift+` (backtick)
+
+# ------------------------------------------------------------------------------
+# 7. STARTUP BANNER
 # ------------------------------------------------------------------------------
 if [ -z "${TMUX}" ]; then
     fastfetch
