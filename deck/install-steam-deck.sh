@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# install-steam-deck.sh — Sway + Waybar for Steam Deck
+# install-steam-deck.sh — Sway + Waybar + dev environment for Steam Deck
 #
 # This script:
 #   1. Ensures nix is installed (with flakes enabled)
-#   2. Installs Sway, Waybar, and dependencies via nix
-#   3. Copies config files to ~/.config/sway/
-#   4. Sets up entry.sh as a Non-Steam Game launcher
+#   2. Installs Sway, Waybar, dev tools, and dependencies via nix
+#   3. Copies config files to ~/.config/sway/ and dotfiles to ~/
+#   4. Installs LazyVim
+#   5. Sets up entry.sh as a Non-Steam Game launcher
 #
 # Usage:
 #   chmod +x install-steam-deck.sh
@@ -65,10 +66,10 @@ else
 fi
 
 # ── step 3: install packages via nix ────────────────────────────────────────
-log_info "Installing Sway + Waybar via nix…"
+log_info "Installing packages via nix…"
 
-# obsidian (and brave) are unfree; allow them for this invocation. --impure lets
-# nix read NIXPKGS_ALLOW_UNFREE from the environment.
+# obsidian is unfree; NIXPKGS_ALLOW_UNFREE=1 + --impure lets nix read it from
+# the environment for this invocation without globally enabling unfree.
 NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     --impure \
     nixpkgs#swayfx \
@@ -80,6 +81,26 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#obsidian \
     nixpkgs#nautilus \
     nixpkgs#vesktop \
+    nixpkgs#neovim \
+    nixpkgs#git \
+    nixpkgs#tmux \
+    nixpkgs#starship \
+    nixpkgs#zoxide \
+    nixpkgs#fzf \
+    nixpkgs#eza \
+    nixpkgs#bat \
+    nixpkgs#ripgrep \
+    nixpkgs#fd \
+    nixpkgs#jq \
+    nixpkgs#btop \
+    nixpkgs#fastfetch \
+    nixpkgs#unzip \
+    nixpkgs#curl \
+    nixpkgs#wget \
+    nixpkgs#python3 \
+    nixpkgs#nodejs \
+    nixpkgs#gcc \
+    nixpkgs#cmake \
     --option experimental-features 'nix-command flakes'
 
 log_ok "Packages installed"
@@ -129,7 +150,39 @@ fi
 
 log_ok "Config files copied"
 
-# ── step 5: print Non-Steam Game instructions ────────────────────────────────
+# ── step 5: dotfiles (.bashrc, .tmux.conf) ───────────────────────────────────
+log_info "Installing dotfiles…"
+
+cp "${SCRIPT_DIR}/.bashrc"          "${HOME}/.bashrc"
+cp "${SCRIPT_DIR}/../.tmux.conf"    "${HOME}/.tmux.conf"
+
+log_ok "Dotfiles installed"
+
+# ── step 6: LazyVim ───────────────────────────────────────────────────────────
+log_info "Installing LazyVim…"
+
+if [[ -d "${HOME}/.config/nvim" ]]; then
+    log_warn "~/.config/nvim already exists — backing up to ~/.config/nvim.bak"
+    mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
+fi
+
+git clone https://github.com/LazyVim/starter "${HOME}/.config/nvim"
+rm -rf "${HOME}/.config/nvim/.git"
+
+log_ok "LazyVim installed"
+
+# ── step 7: git config ────────────────────────────────────────────────────────
+log_info "Configuring git…"
+
+git config --global init.defaultBranch main
+git config --global core.editor "nvim"
+git config --global credential.helper store
+git config --global user.name "kheesu"
+git config --global user.email "kheesu496@gmail.com"
+
+log_ok "Git configured"
+
+# ── step 8: print Non-Steam Game instructions ────────────────────────────────
 log_info ""
 log_info "=========================================="
 log_ok "Installation complete!"
