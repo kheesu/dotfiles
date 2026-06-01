@@ -27,6 +27,7 @@ log_error() { echo -e "${RED}[ERROR]${NC} $*"; }
 
 HOME="${HOME:-/home/deck}"
 CONFIG_DIR="${HOME}/.config/sway"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 log_info "Steam Deck Sway + Waybar Installer"
 log_info "Home: $HOME"
@@ -144,8 +145,6 @@ log_ok "fcitx5 installed"
 log_info "Copying config files to ${CONFIG_DIR}…"
 
 mkdir -p "${CONFIG_DIR}/wallpaper"
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 mkdir -p "${HOME}/.config/foot"
 cp "${SCRIPT_DIR}/foot/foot.ini"    "${HOME}/.config/foot/foot.ini"
