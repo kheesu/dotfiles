@@ -106,14 +106,17 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
 log_ok "Packages installed"
 
 # ── step 3b: install nixGL ────────────────────────────────────────────────────
-# Use the channel-based nixgl.auto.nixGLDefault (same method as boseriko/sway).
-# The 'auto' variant detects the host GPU at install time, which is required
-# for sway to drive real DRM outputs instead of falling back to X11.
-log_info "Installing nixGL via channel…"
+# Use guibou's nixGL flake (the same source boseriko/sway uses) with --impure
+# so it auto-detects the host GPU at build time. This is required for sway to
+# drive real DRM outputs instead of falling back to the X11 backend.
+# Note: guibou/nixGL, NOT nix-community/nixGL — the latter gave the wrong
+# variant and caused the X11-1 @ 1024x768 fallback.
+log_info "Installing nixGL…"
 
-nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl
-nix-channel --update nixgl
-nix-env --impure -iA nixgl.auto.nixGLDefault
+nix profile install \
+    --impure \
+    github:guibou/nixGL#nixGLDefault \
+    --option experimental-features 'nix-command flakes'
 
 log_ok "nixGL installed"
 
