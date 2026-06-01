@@ -164,17 +164,14 @@ cp "${SCRIPT_DIR}/../.tmux.conf"    "${HOME}/.tmux.conf"
 log_ok "Dotfiles installed"
 
 # ── step 6: LazyVim ───────────────────────────────────────────────────────────
-log_info "Installing LazyVim…"
-
 if [[ -d "${HOME}/.config/nvim" ]]; then
-    log_warn "~/.config/nvim already exists — backing up to ~/.config/nvim.bak"
-    mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
+    log_ok "~/.config/nvim already exists — skipping LazyVim install"
+else
+    log_info "Installing LazyVim…"
+    git clone https://github.com/LazyVim/starter "${HOME}/.config/nvim"
+    rm -rf "${HOME}/.config/nvim/.git"
+    log_ok "LazyVim installed"
 fi
-
-git clone https://github.com/LazyVim/starter "${HOME}/.config/nvim"
-rm -rf "${HOME}/.config/nvim/.git"
-
-log_ok "LazyVim installed"
 
 # ── step 7: git config ────────────────────────────────────────────────────────
 log_info "Configuring git…"
