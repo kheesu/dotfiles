@@ -1,8 +1,7 @@
 # Configuration — Sway (SwayFX) for Steam Deck
 # Super-centric, mirroring the root project's Hyprland keybinds.
-# Set your monitor's native resolution here.
-# Run 'swaymsg -t get_outputs' to see what modes your monitor supports.
-output * resolution 1920x1080
+# No output resolution set — sway uses the monitor's preferred mode when
+# driving real DRM/KMS outputs.
 
 seat seat0 xcursor_theme default 24
 
