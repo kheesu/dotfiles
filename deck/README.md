@@ -174,6 +174,36 @@ nix profile upgrade '.*'
 
 ---
 
+## Korean / Japanese input (Fcitx5)
+
+The installer sets up **Fcitx5** with Hangul (Korean) and Mozc (Japanese) engines.
+After the first boot into Sway, configure which languages you want active:
+
+```bash
+fcitx5-configtool
+```
+
+1. Click **+** to add an input method
+2. Uncheck "Only Show Current Language", then search for **Hangul** or **Mozc**
+3. Click **Apply**
+
+Switch between input methods with **Ctrl+Space** (default). The tray icon in
+Waybar shows the active method.
+
+> **Why not use SteamOS's built-in IBus?**  
+> SteamOS ships `ibus-hangul`, but it is widely broken for Korean on external
+> keyboards (it leaks intermediate characters into text fields and fails in
+> Electron apps). Fcitx5 under Wayland is the community-recommended replacement.
+
+> **Why install from the flake, not `nix profile install nixpkgs#fcitx5-hangul`?**  
+> Fcitx5 only discovers addons inside its own Nix store path. Installing engines
+> as separate packages puts them in different store paths where Fcitx5 can't find
+> them. The flake's `fcitx5-input` package uses `fcitx5-with-addons` to
+> `symlinkJoin` everything into one path, which is the only way this works on
+> non-NixOS.
+
+---
+
 ## Troubleshooting
 
 | Symptom | Fix |
@@ -186,3 +216,6 @@ nix profile upgrade '.*'
 | Brave/Vesktop/Obsidian spawn endless windows | Chromium/Electron crash-loops under the nixGL `LD_LIBRARY_PATH`; the config launches them with `env -u LD_LIBRARY_PATH`. Use the same wrapper for any new Electron app |
 | No animations | Window animations need SwayFX master; nixpkgs ships 0.5.3 without them. Pin a git build in `flake.nix`, then add `animation_duration_ms 250` to `config` |
 | Fonts wrong | Run `nix profile install nixpkgs#nerd-fonts.jetbrains-mono` and restart Waybar |
+| Korean/Japanese not working | Run `fcitx5-configtool` and add Hangul/Mozc; confirm fcitx5 is running: `pgrep fcitx5` |
+| Fcitx5 running but no candidate window | Sway 1.10+ required for the `zwp_input_method_v2` popup; check `sway --version` |
+| Input works in terminal but not in Firefox | Ensure `GTK_IM_MODULE=fcitx` is exported (it's set in `entry.sh`); restart Firefox |

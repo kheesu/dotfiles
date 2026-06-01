@@ -4,22 +4,39 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixgl }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
+        packages = {
+          # Fcitx5 bundled with Korean + Japanese engines and the GTK IM module.
+          #
+          # WHY a flake package and not separate `nix profile install` calls:
+          # Fcitx5 discovers addons by searching lib/fcitx5/ inside its own
+          # Nix store path. Engines installed as separate packages land in
+          # different store paths and are never found. fcitx5-with-addons uses
+          # symlinkJoin to merge all chosen packages into a single store path
+          # and wraps the fcitx5 binary with FCITX_ADDON_DIRS pointing to it.
+          fcitx5-input = pkgs.fcitx5-with-addons.override {
+            addons = with pkgs; [
+              fcitx5-hangul  # Korean (Hangul)
+              fcitx5-mozc    # Japanese (Mozc — larger dictionary than Anthy)
+              fcitx5-gtk     # GTK2/3/4 IM module (Firefox, Nautilus, etc.)
+            ];
+          };
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            sway
+            swayfx
             waybar
-            rofi-wayland
+            rofi
             foot
-            nerdfonts
+            nerd-fonts.jetbrains-mono
             brightnessctl
             grim
             slurp

@@ -11,5 +11,15 @@ unset LD_PRELOAD
 # track the pointer exactly.
 export WLR_NO_HARDWARE_CURSORS=1
 
+# Input method — Korean/Japanese via Fcitx5.
+# Must be set here (before Sway starts) so every Wayland client inherits them.
+# XMODIFIERS covers XWayland/legacy apps; GTK_IM_MODULE covers GTK3 apps like
+# Firefox which don't always negotiate the Wayland text-input-v3 protocol.
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
+
 # Since Sway is installed via Nix we need to run it with nixGL to get OpenGL working
 exec nixGL sway

@@ -120,6 +120,25 @@ nix profile install \
 
 log_ok "nixGL installed"
 
+# ── step 3c: install fcitx5 (Korean + Japanese input) ───────────────────────
+# IMPORTANT: engines must be installed via the flake's fcitx5-input package,
+# NOT as separate nix profile installs. Fcitx5 only searches lib/fcitx5/ in
+# its own Nix store path; separate packages land in different paths and are
+# never found. The flake uses fcitx5-with-addons (symlinkJoin) to merge
+# fcitx5 + hangul + mozc + fcitx5-gtk into one store path.
+log_info "Installing fcitx5 (Korean/Japanese input)…"
+
+nix profile install \
+    "path:${SCRIPT_DIR}#fcitx5-input" \
+    --option experimental-features 'nix-command flakes'
+
+# Config GUI — separate from the bundle; does not need to share the store path.
+nix profile install \
+    nixpkgs#fcitx5-configtool \
+    --option experimental-features 'nix-command flakes'
+
+log_ok "fcitx5 installed"
+
 # ── step 4: copy config files ────────────────────────────────────────────────
 log_info "Copying config files to ${CONFIG_DIR}…"
 

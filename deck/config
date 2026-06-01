@@ -12,6 +12,11 @@ seat seat0 xcursor_theme default 24
 
 exec_always /home/deck/.config/sway/set-wallpaper.sh
 
+# ── Input method (Korean / Japanese) ─────────────────────────────────────────
+# Use exec (not exec_always) — one daemon instance; don't restart on reload.
+# --replace kills any existing instance so reload doesn't stack processes.
+exec /home/deck/.nix-profile/bin/fcitx5 -d --replace
+
 # Border
 gaps inner 5
 gaps outer 5
