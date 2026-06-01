@@ -1,9 +1,9 @@
 # Configuration — Sway (SwayFX) for Steam Deck
 # Super-centric, mirroring the root project's Hyprland keybinds.
-# The Steam Deck's built-in display is 1280x800. Forcing 1920x1080 breaks
-# cursor hit-testing and causes the oversized-cursor / misaligned-click bug.
-output eDP-1 resolution 1280x800 scale 1
-output * scale 1
+# Let sway use the monitor's preferred resolution and scale.
+# Forcing a specific resolution (e.g. 1920x1080) when the display reports a
+# different preferred mode breaks cursor hit-testing and scales the cursor wrong.
+output * resolution preferred scale 1
 
 seat seat0 xcursor_theme default 24
 
