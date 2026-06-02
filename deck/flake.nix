@@ -13,6 +13,12 @@
       in
       {
         packages = {
+          # input-leap is missing qt6.qtwayland in its nixpkgs buildInputs
+          # (issue #353774), which causes a crash under Wayland. Override to add it.
+          input-leap = pkgs.input-leap.overrideAttrs (old: {
+            buildInputs = (old.buildInputs or []) ++ [ pkgs.qt6.qtwayland ];
+          });
+
           # Fcitx5 bundled with Korean + Japanese engines and the GTK IM module.
           #
           # WHY a flake package and not separate `nix profile install` calls:

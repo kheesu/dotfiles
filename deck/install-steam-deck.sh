@@ -137,6 +137,17 @@ nix profile install \
 
 log_ok "fcitx5 installed"
 
+# ── step 3d: install input-leap (KVM — share keyboard/mouse between machines) ─
+# nixpkgs input-leap is missing qt6.qtwayland (issue #353774); install the
+# patched version from the local flake instead.
+log_info "Installing input-leap…"
+
+nix profile install \
+    "path:${SCRIPT_DIR}#input-leap" \
+    --option experimental-features 'nix-command flakes'
+
+log_ok "input-leap installed"
+
 # ── step 4: copy config files ────────────────────────────────────────────────
 log_info "Copying config files to ${CONFIG_DIR}…"
 
