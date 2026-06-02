@@ -155,12 +155,14 @@ cp "${SCRIPT_DIR}/cycle-wallpaper.sh"     "${CONFIG_DIR}/cycle-wallpaper.sh"
 cp "${SCRIPT_DIR}/entry.sh"               "${CONFIG_DIR}/entry.sh"
 cp "${SCRIPT_DIR}/workspace-next-new.sh"  "${CONFIG_DIR}/workspace-next-new.sh"
 cp "${SCRIPT_DIR}/workspace-new.sh"       "${CONFIG_DIR}/workspace-new.sh"
+cp "${SCRIPT_DIR}/ai-workspace.sh"        "${CONFIG_DIR}/ai-workspace.sh"
 
 chmod +x "${CONFIG_DIR}/set-wallpaper.sh" \
          "${CONFIG_DIR}/cycle-wallpaper.sh" \
          "${CONFIG_DIR}/entry.sh" \
          "${CONFIG_DIR}/workspace-next-new.sh" \
-         "${CONFIG_DIR}/workspace-new.sh"
+         "${CONFIG_DIR}/workspace-new.sh" \
+         "${CONFIG_DIR}/ai-workspace.sh"
 
 # Seed wallpapers from the repo so set-wallpaper.sh has something to show.
 # Without at least one image in wallpaper/, set-wallpaper.sh exits early and
