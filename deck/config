@@ -6,7 +6,7 @@
 # resolution (Steam → Settings → Display) for a sharp 1:1 image.
 # scale 2 = 200% UI scaling (crisp, gives a 1920x1080 logical workspace on 4K).
 # Use scale 1.5 for 150%. Integer scales (2) are sharpest; 1.5 is fractional.
-output * resolution 3840x2160 scale 2
+output * resolution 3840x2160 scale 1.5
 
 seat seat0 xcursor_theme default 24
 
