@@ -85,6 +85,7 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#nautilus \
     nixpkgs#vesktop \
     nixpkgs#slack \
+    nixpkgs#zotero \
     nixpkgs#neovim \
     nixpkgs#git \
     nixpkgs#tmux \
