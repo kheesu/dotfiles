@@ -101,6 +101,7 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#curl \
     nixpkgs#wget \
     nixpkgs#python3 \
+    nixpkgs#uv \
     nixpkgs#nodejs \
     nixpkgs#gcc \
     nixpkgs#cmake \
