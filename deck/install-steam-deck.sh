@@ -150,13 +150,17 @@ cp "${SCRIPT_DIR}/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
 cp "${SCRIPT_DIR}/config"            "${CONFIG_DIR}/config"
 cp "${SCRIPT_DIR}/waybar.config"     "${CONFIG_DIR}/waybar.config"
 cp "${SCRIPT_DIR}/waybar.css"        "${CONFIG_DIR}/waybar.css"
-cp "${SCRIPT_DIR}/set-wallpaper.sh"  "${CONFIG_DIR}/set-wallpaper.sh"
-cp "${SCRIPT_DIR}/cycle-wallpaper.sh" "${CONFIG_DIR}/cycle-wallpaper.sh"
-cp "${SCRIPT_DIR}/entry.sh"          "${CONFIG_DIR}/entry.sh"
+cp "${SCRIPT_DIR}/set-wallpaper.sh"       "${CONFIG_DIR}/set-wallpaper.sh"
+cp "${SCRIPT_DIR}/cycle-wallpaper.sh"     "${CONFIG_DIR}/cycle-wallpaper.sh"
+cp "${SCRIPT_DIR}/entry.sh"               "${CONFIG_DIR}/entry.sh"
+cp "${SCRIPT_DIR}/workspace-next-new.sh"  "${CONFIG_DIR}/workspace-next-new.sh"
+cp "${SCRIPT_DIR}/workspace-new.sh"       "${CONFIG_DIR}/workspace-new.sh"
 
 chmod +x "${CONFIG_DIR}/set-wallpaper.sh" \
          "${CONFIG_DIR}/cycle-wallpaper.sh" \
-         "${CONFIG_DIR}/entry.sh"
+         "${CONFIG_DIR}/entry.sh" \
+         "${CONFIG_DIR}/workspace-next-new.sh" \
+         "${CONFIG_DIR}/workspace-new.sh"
 
 # Seed wallpapers from the repo so set-wallpaper.sh has something to show.
 # Without at least one image in wallpaper/, set-wallpaper.sh exits early and

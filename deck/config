@@ -79,7 +79,8 @@ bindsym Mod4+Mod1+j resize grow height 30px
 
 # ── Cycle workspaces (Super + Ctrl + h/l) ────────────────────────────────────
 bindsym Mod4+Ctrl+h workspace prev
-bindsym Mod4+Ctrl+l workspace next
+bindsym Mod4+Ctrl+l exec /home/deck/.config/sway/workspace-next-new.sh
+bindsym Mod4+Ctrl+n exec /home/deck/.config/sway/workspace-new.sh
 
 # ── Switch workspace (Super + 1–0) ────────────────────────────────────────────
 bindsym Mod4+1 workspace 1
