@@ -77,6 +77,10 @@ bindsym Mod4+Mod1+l resize grow width 30px
 bindsym Mod4+Mod1+k resize shrink height 30px
 bindsym Mod4+Mod1+j resize grow height 30px
 
+# ── Cycle workspaces (Super + Ctrl + h/l) ────────────────────────────────────
+bindsym Mod4+Ctrl+h workspace prev
+bindsym Mod4+Ctrl+l workspace next
+
 # ── Switch workspace (Super + 1–0) ────────────────────────────────────────────
 bindsym Mod4+1 workspace 1
 bindsym Mod4+2 workspace 2
