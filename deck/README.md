@@ -147,45 +147,6 @@ apps, windows, and workspaces. Nothing requires a mouse.
 
 ---
 
-## Input Leap (share keyboard & mouse between computers)
-
-Input Leap lets you move your mouse off the edge of one screen and onto another
-computer, sharing the keyboard and mouse seamlessly.
-
-| Term | Meaning |
-|---|---|
-| **Server** | The machine whose physical keyboard and mouse you want to share |
-| **Client** | Every other machine that receives the shared input |
-
-### First-time setup
-
-1. Press `Super+I` to open the Input Leap GUI on **both** machines
-2. On the **server**: choose *Server*, click *Configure Server*, drag a screen
-   tile for the client and name it to match the client's hostname
-3. On the **client**: choose *Client*, enter the server's IP address
-4. Click *Start* on both — Input Leap generates SSL certificates automatically
-   on first run
-
-The Deck is most naturally a **client** (it receives input from your desktop's
-keyboard and mouse), but it can be a server too.
-
-### Keybind
-
-| Shortcut | Action |
-|---|---|
-| `Super + I` | Open Input Leap GUI |
-
-### Notes
-
-- Input Leap uses the `libei` Wayland input emulation protocol. Both Sway and
-  Hyprland support it, but you may need
-  `xdg-desktop-portal-wlr` / `xdg-desktop-portal-hyprland` running.
-- Clipboard sharing is not yet supported on Wayland.
-- The patched flake package (`path:deck#input-leap`) adds the missing
-  `qt6.qtwayland` dependency that causes a crash with the stock nixpkgs build.
-
----
-
 ## Customisation
 
 ### Change colours

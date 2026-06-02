@@ -51,7 +51,6 @@ bindsym Mod4+d      exec vesktop --ozone-platform=wayland --no-sandbox
 bindsym Mod4+Shift+d exec slack --ozone-platform=wayland --no-sandbox
 bindsym Mod4+o      exec obsidian --ozone-platform=wayland --no-sandbox
 bindsym Mod4+e      exec nautilus
-bindsym Mod4+i      exec env QT_QPA_PLATFORM=wayland input-leap
 
 # ── Window controls (Super) ───────────────────────────────────────────────────
 bindsym Mod4+w       kill
