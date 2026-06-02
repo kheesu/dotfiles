@@ -107,9 +107,11 @@ bindsym Mod4+Shift+9 move container to workspace 9
 bindsym Mod4+Shift+0 move container to workspace 10
 
 # ── AI workspace (Super + A) ─────────────────────────────────────────────────
-# First press: launches Claude, Gemini, and ChatGPT on a named "AI" workspace.
-# Subsequent presses: toggle between AI and the previous workspace.
-# Super+Shift+A moves the focused window into the AI workspace.
+# Each AI tool is a Chromium --app window with a unique app_id so for_window
+# can place it on the AI workspace the moment it appears.
+for_window [app_id="claude-ai"]  move container to workspace AI
+for_window [app_id="gemini-ai"]  move container to workspace AI
+for_window [app_id="chatgpt-ai"] move container to workspace AI
 bindsym Mod4+a       exec /home/deck/.config/sway/ai-workspace.sh
 bindsym Mod4+Shift+a move container to workspace AI
 

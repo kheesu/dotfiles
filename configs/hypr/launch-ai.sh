@@ -1,9 +1,11 @@
 #!/bin/sh
-# Open Claude, Gemini, and ChatGPT as separate Firefox windows.
-# windowrulev2 rules in hyprland.conf watch for these titles and auto-move
-# the windows to special:ai as the pages load.
-firefox --new-window https://claude.ai &
-sleep 0.8
-firefox --new-window https://gemini.google.com &
-sleep 0.8
-firefox --new-window https://chat.openai.com &
+# Launch Claude, Gemini, and ChatGPT as standalone app-mode Chromium windows.
+# --app removes the browser UI (address bar, tabs). --class sets a unique
+# WM_CLASS / Wayland app_id so windowrulev2 can place each window in
+# special:ai the moment it appears — no waiting for page titles to load.
+chromium --ozone-platform=wayland --no-sandbox \
+    --app=https://claude.ai --class=claude-ai &
+chromium --ozone-platform=wayland --no-sandbox \
+    --app=https://gemini.google.com --class=gemini-ai &
+chromium --ozone-platform=wayland --no-sandbox \
+    --app=https://chat.openai.com --class=chatgpt-ai &

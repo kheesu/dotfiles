@@ -79,6 +79,7 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#foot \
     nixpkgs#nerd-fonts.jetbrains-mono \
     nixpkgs#firefox \
+    nixpkgs#chromium \
     nixpkgs#obsidian \
     nixpkgs#nautilus \
     nixpkgs#vesktop \

@@ -1,7 +1,6 @@
 #!/bin/sh
-# Toggle the AI named workspace (Sway has no native overlay/special workspace).
-# First visit: launches Claude, Gemini, and ChatGPT. Subsequent presses
-# toggle between AI and wherever you were before.
+# Toggle the AI workspace. First visit launches the three AI tools as
+# standalone Chromium --app windows. Subsequent presses toggle back and forth.
 CURRENT=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused) | .name')
 if [ "$CURRENT" = "AI" ]; then
     swaymsg workspace back_and_forth
@@ -10,9 +9,12 @@ fi
 AI_EXISTS=$(swaymsg -t get_workspaces | jq -r '[.[] | select(.name == "AI")] | length')
 swaymsg workspace AI
 if [ "$AI_EXISTS" = "0" ]; then
-    firefox --new-window https://claude.ai &
-    sleep 0.8
-    firefox --new-window https://gemini.google.com &
-    sleep 0.8
-    firefox --new-window https://chat.openai.com &
+    # env -u LD_LIBRARY_PATH prevents the Chromium crash-loop under nixGL.
+    # --app removes browser UI; --class sets the Wayland app_id for for_window rules.
+    env -u LD_LIBRARY_PATH chromium --ozone-platform=wayland --no-sandbox \
+        --app=https://claude.ai --class=claude-ai &
+    env -u LD_LIBRARY_PATH chromium --ozone-platform=wayland --no-sandbox \
+        --app=https://gemini.google.com --class=gemini-ai &
+    env -u LD_LIBRARY_PATH chromium --ozone-platform=wayland --no-sandbox \
+        --app=https://chat.openai.com --class=chatgpt-ai &
 fi
