@@ -21,5 +21,8 @@ export QT_IM_MODULE=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 
+# Default browser — Slack and other Electron apps use this to open links.
+export BROWSER=firefox
+
 # Since Sway is installed via Nix we need to run it with nixGL to get OpenGL working
 exec nixGL sway
