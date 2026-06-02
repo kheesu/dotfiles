@@ -77,6 +77,7 @@ NIXPKGS_ALLOW_UNFREE=1 nix profile install \
     nixpkgs#waybar \
     nixpkgs#rofi \
     nixpkgs#foot \
+    nixpkgs#fish \
     nixpkgs#nerd-fonts.jetbrains-mono \
     nixpkgs#firefox \
     nixpkgs#chromium \
@@ -145,6 +146,9 @@ mkdir -p "${CONFIG_DIR}/wallpaper"
 
 mkdir -p "${HOME}/.config/foot"
 cp "${SCRIPT_DIR}/foot/foot.ini"    "${HOME}/.config/foot/foot.ini"
+
+mkdir -p "${HOME}/.config/fish"
+cp "${SCRIPT_DIR}/fish/config.fish" "${HOME}/.config/fish/config.fish"
 
 mkdir -p "${HOME}/.config/rofi"
 cp "${SCRIPT_DIR}/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
