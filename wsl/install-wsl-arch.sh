@@ -111,11 +111,8 @@ as_user git config --global credential.helper store
 as_user git config --global user.name "kheesu"
 as_user git config --global user.email "kheesu496@gmail.com"
 
-# LazyVim starter (skip if nvim config already present)
-if [ ! -d "$HOME_DIR/.config/nvim" ]; then
-  as_user git clone https://github.com/LazyVim/starter "$HOME_DIR/.config/nvim"
-  as_user rm -rf "$HOME_DIR/.config/nvim/.git"
-fi
+# Neovim config ships in the repo (wsl/config/nvim) and was already copied by
+# the `cp -r config/*` step above. lazy.nvim self-bootstraps on first launch.
 
 echo ""
 echo "=========================================="
