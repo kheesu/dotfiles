@@ -88,8 +88,31 @@ needs_root_rights=yes
 EOF
 
 # ── Phase 4: WSL systemd + services ───────────────────────────────────────────
+# Non-destructive: an existing /etc/wsl.conf may hold sections we must not lose
+# (notably [user] default=…). Only ensure systemd=true under [boot]; leave the
+# rest untouched. Fall back to the shipped template if there's no file yet.
 echo "Enabling systemd via /etc/wsl.conf…"
-cp "$WSL_DIR/wsl.conf" /etc/wsl.conf
+if [ ! -f /etc/wsl.conf ]; then
+  cp "$WSL_DIR/wsl.conf" /etc/wsl.conf
+else
+  cp /etc/wsl.conf /etc/wsl.conf.bak
+  echo "Backed up existing /etc/wsl.conf → /etc/wsl.conf.bak"
+  if grep -qE '^[[:space:]]*systemd[[:space:]]*=' /etc/wsl.conf; then
+    sed -i -E 's/^[[:space:]]*systemd[[:space:]]*=.*/systemd=true/' /etc/wsl.conf
+  elif grep -qE '^[[:space:]]*\[boot\]' /etc/wsl.conf; then
+    sed -i -E '/^[[:space:]]*\[boot\]/a systemd=true' /etc/wsl.conf
+  else
+    printf '\n[boot]\nsystemd=true\n' >>/etc/wsl.conf
+  fi
+fi
+
+# Restore/ensure the default login user. A prior run of this script overwrote
+# wsl.conf and dropped this; add it back if absent so WSL doesn't fall back to
+# root. Leaves any existing [user] section alone.
+if ! grep -qE '^[[:space:]]*\[user\]' /etc/wsl.conf; then
+  printf '\n[user]\ndefault=%s\n' "$REAL_USER" >>/etc/wsl.conf
+  echo "Restored [user] default=$REAL_USER in /etc/wsl.conf"
+fi
 
 # These enable now but only actually run after `wsl --shutdown` + relaunch,
 # once systemd is PID 1.
