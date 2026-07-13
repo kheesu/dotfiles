@@ -80,12 +80,19 @@ install -m 0755 "$WSL_DIR/startwm.sh" /etc/xrdp/startwm.sh
 # WSL's localhost forwarding would otherwise shadow.
 sed -i 's/^port=.*/port=3390/' /etc/xrdp/xrdp.ini
 
-# Let xorgxrdp start Xorg without a seat/root rights inside WSL.
-mkdir -p /etc/X11
-cat >/etc/X11/Xwrapper.config <<'EOF'
-allowed_users=anybody
-needs_root_rights=yes
-EOF
+# Use the Xvnc backend, NOT Xorg/xorgxrdp. WSL2 has no VT, DRM node, or logind
+# seat, so the Xorg backend dies on launch and sesman reports "Error connecting
+# to user session". Xvnc is fully headless and needs none of that. autorun skips
+# the session picker so the client lands straight in the Xvnc session.
+if grep -qE '^[[:space:]]*autorun=' /etc/xrdp/xrdp.ini; then
+  sed -i -E 's/^[[:space:]]*autorun=.*/autorun=Xvnc/' /etc/xrdp/xrdp.ini
+else
+  sed -i -E '/^\[Globals\]/a autorun=Xvnc' /etc/xrdp/xrdp.ini
+fi
+
+# sesman/Xvnc need this socket dir; WSL rootfs images often ship without it.
+mkdir -p /tmp/.X11-unix
+chmod 1777 /tmp/.X11-unix
 
 # ── Phase 4: WSL systemd + services ───────────────────────────────────────────
 # Non-destructive: an existing /etc/wsl.conf may hold sections we must not lose

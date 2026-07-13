@@ -4,11 +4,11 @@
 #  Windows. Inline comments are stripped by the installer.
 # ==============================================================================
 
-# ── X / xrdp session (xrdp + xorgxrdp are AUR; yay handles them) ──────────────
-xorg-server
-xorg-xinit
+# ── X / xrdp session ──────────────────────────────────────────────────────────
+# Xvnc backend (from tigervnc, official repo) — headless, works in WSL2 where
+# the Xorg backend can't (no VT/DRM/seat). xrdp itself is AUR; yay handles it.
 xorg-xrandr
-xorgxrdp
+tigervnc
 xrdp
 dbus
 xterm

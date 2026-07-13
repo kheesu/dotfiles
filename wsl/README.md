@@ -77,6 +77,7 @@ Log in as your normal Linux user — you land straight in i3.
 | Symptom | Fix |
 |---|---|
 | RDP connects then drops / black screen | `systemctl status xrdp` inside WSL; ensure you ran `wsl --shutdown` after install so systemd is PID 1 |
+| Log shows "Error connecting to user session" | The Xorg backend can't run in WSL2 (no VT/seat). This setup uses the **Xvnc** backend via `autorun=Xvnc` in `xrdp.ini`. Confirm tigervnc is installed and `grep autorun /etc/xrdp/xrdp.ini` shows `Xvnc`. Backend log: `~/.xorgxrdp.*.log` (Xorg) or check `journalctl -u xrdp-sesman` |
 | `systemctl` says "failed to connect to bus" | systemd isn't active — confirm `[boot] systemd=true` in `/etc/wsl.conf`, then `wsl --shutdown` |
 | Can't reach `localhost:3390` | Check xrdp is listening: `ss -tlnp | grep 3390`. Confirm you're connecting to `localhost`, not the WSL IP |
 | Fonts show boxes | Nerd Font missing — `sudo pacman -S ttf-jetbrains-mono-nerd`, restart the session |
