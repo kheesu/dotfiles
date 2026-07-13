@@ -90,9 +90,11 @@ else
   sed -i -E '/^\[Globals\]/a autorun=Xvnc' /etc/xrdp/xrdp.ini
 fi
 
-# sesman/Xvnc need this socket dir; WSL rootfs images often ship without it.
-mkdir -p /tmp/.X11-unix
-chmod 1777 /tmp/.X11-unix
+# sesman/Xvnc need this socket dir. With systemd active it's created as a
+# read-only-to-us tmpfs entry (drwxrwxrwt) automatically — so tolerate both
+# "already correct" and "can't touch it" rather than aborting under set -e.
+mkdir -p /tmp/.X11-unix 2>/dev/null || true
+chmod 1777 /tmp/.X11-unix 2>/dev/null || true
 
 # ── Phase 4: WSL systemd + services ───────────────────────────────────────────
 # Non-destructive: an existing /etc/wsl.conf may hold sections we must not lose
